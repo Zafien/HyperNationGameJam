@@ -15,12 +15,10 @@ namespace NF.Main.Gameplay
 
     public class PlayerController : MonoExt
     {
-        public float moveSpeed = 5f;         // Movement speed
+        [TabGroup("Move Stats")][SerializeField] public float moveSpeed = 5f;         // Movement speed
         public float rotationSpeed = 10f;    // Rotation smoothing speed
-
-        private Rigidbody rb;                // Reference to Rigidbody component
-        private Vector2 movementInput;       // Store WASD/arrow key input
-
+        private Rigidbody rb;                
+        private Vector2 movementInput;    
         private PlayerInputActions inputActions;
 
         void Awake()
@@ -29,9 +27,8 @@ namespace NF.Main.Gameplay
             inputActions = new PlayerInputActions();
             inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
             inputActions.Player.Move.canceled += ctx => movementInput = Vector2.zero;
-
-            rb = GetComponent<Rigidbody>();  // Get Rigidbody component
-       /*     rb.freezeRotation = true;      */  // Disable physics-based rotation
+            rb = GetComponent<Rigidbody>();  
+   
         }
 
         void OnEnable() => inputActions.Player.Enable();
@@ -44,7 +41,7 @@ namespace NF.Main.Gameplay
 
         void MoveAndRotatePlayer()
         {
-            // Create a 3D movement direction (X-Z plane)
+           
             Vector3 moveDirection = new Vector3(movementInput.x, 0f, movementInput.y).normalized;
 
             if (moveDirection.magnitude >= 0.1f)  // If there is movement input

@@ -46,6 +46,7 @@ public class BodyRotator : MonoBehaviour
     public void CheckEnemiesInRange()
     {
         _enemies.Clear();
+        float shortestDistance = Mathf.Infinity;
         Vector3 origin = transform.position;
         Collider[] colliders = Physics.OverlapSphere(origin, Radius, enemyLayerMask);
         if (colliders.Length > 0)
@@ -53,12 +54,15 @@ public class BodyRotator : MonoBehaviour
             // Add enemies to the list
             foreach (var collider in colliders)
             {
-                _enemies.Add(collider.gameObject);
+                float distance = Vector3.Distance(transform.position, collider.transform.position);
+
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    NearestEnemy = collider.gameObject; // Store the nearest enemy
+                }
             }
 
-            // Log the nearest enemy, if needed
-            GameObject nearestEnemy = NearestEnemy;
-            NearestEnemy = _enemies[0]; //testing purposes
         }
         else
         {
@@ -97,6 +101,7 @@ public class BodyRotator : MonoBehaviour
         upperBody.localRotation = originalUpperBodyRotation;
 
     }
+
 
 
 }
