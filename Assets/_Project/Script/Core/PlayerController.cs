@@ -31,7 +31,7 @@ namespace NF.Main.Gameplay
             inputActions.Player.Move.canceled += ctx => movementInput = Vector2.zero;
 
             rb = GetComponent<Rigidbody>();  // Get Rigidbody component
-            rb.freezeRotation = true;        // Disable physics-based rotation
+       /*     rb.freezeRotation = true;      */  // Disable physics-based rotation
         }
 
         void OnEnable() => inputActions.Player.Enable();
