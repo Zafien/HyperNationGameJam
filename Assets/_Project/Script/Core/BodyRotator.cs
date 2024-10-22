@@ -7,13 +7,15 @@ using UnityEngine;
 public class BodyRotator : MonoBehaviour
 {
 
-    public Transform upperBody;      // Reference to the upper body object
-    public Transform feetTransform;  // Reference to the feet object
+    [TabGroup("BodyParts")][SerializeField] public Transform upperBody;
+    [TabGroup("BodyParts")][SerializeField] public Transform feetTransform;
+    [TabGroup("BodyPart Stats")][SerializeField] public float UpperBodyResetRotationSpeed;
+
     [TabGroup("Enemy Detection")][SerializeField] private List<GameObject> _enemies = new List<GameObject>();
-    public GameObject NearestEnemy;
-    public LayerMask enemyLayerMask;
-    public float Radius;
-    public float UpperBodyResetRotationSpeed;
+    [TabGroup("Enemy Detection")][SerializeField] public GameObject NearestEnemy;
+    [TabGroup("Enemy Detection")][SerializeField] public LayerMask enemyLayerMask;
+    [TabGroup("Enemy Detection")][SerializeField] public float Radius;
+    
 
     private Quaternion originalUpperBodyRotation;
 
