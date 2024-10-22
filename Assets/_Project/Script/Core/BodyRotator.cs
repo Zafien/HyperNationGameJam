@@ -29,7 +29,7 @@ public class BodyRotator : MonoBehaviour
         CheckEnemiesInRange();
         if (NearestEnemy != null)
         {
-            upperBody.transform.LookAt(NearestEnemy.transform);
+            TargetEnemy();
         }
         else
         {
@@ -68,6 +68,13 @@ public class BodyRotator : MonoBehaviour
         {
             NearestEnemy = null;
         }
+    }
+
+    public void TargetEnemy()
+    {
+
+        Vector3 targetPosition = new Vector3(NearestEnemy.transform.position.x, 0, NearestEnemy.transform.position.z);
+        upperBody.transform.LookAt(targetPosition);
     }
 
     void AddObjectToList(GameObject obj, List<GameObject> myList)

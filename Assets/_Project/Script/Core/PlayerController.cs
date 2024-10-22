@@ -21,6 +21,8 @@ namespace NF.Main.Gameplay
         private Vector2 movementInput;    
         private PlayerInputActions inputActions;
 
+        public Transform ExchangeObject;
+
         void Awake()
         {
             // Initialize input actions and register movement callbacks
@@ -34,6 +36,11 @@ namespace NF.Main.Gameplay
         void OnEnable() => inputActions.Player.Enable();
         void OnDisable() => inputActions.Player.Disable();
 
+
+        private void Update()
+        {
+            Exchange();
+        }
         void FixedUpdate()
         {
             MoveAndRotatePlayer();
@@ -56,6 +63,21 @@ namespace NF.Main.Gameplay
                 Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
                 rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
             }
+        }
+
+
+        public void Exchange()
+        {
+
+            if (Input.GetKeyDown(KeyCode.V))
+            {
+                Vector3 tempPosition = this.transform.position;
+
+                // Swap positions
+                this.transform.position = ExchangeObject.position;
+                ExchangeObject.position = tempPosition;
+            }
+           
         }
     }
 }
