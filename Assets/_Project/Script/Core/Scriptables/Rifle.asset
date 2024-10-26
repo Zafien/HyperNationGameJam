@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa71ab6704b7890429083c2446201442, type: 3}
-  m_Name: UnitData
+  m_Script: {fileID: 11500000, guid: 3240ba600f6bdc04399e777df1ccbb4d, type: 3}
+  m_Name: Rifle
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2

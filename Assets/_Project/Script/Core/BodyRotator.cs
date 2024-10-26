@@ -5,6 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
+public enum Weapon
+{
+    Melee,
+    Gun
+}
 
 public class BodyRotator : MonoBehaviour
 {
@@ -17,15 +22,18 @@ public class BodyRotator : MonoBehaviour
     [TabGroup("Enemy Detection")][SerializeField] private List<GameObject> _enemies = new List<GameObject>();
     [TabGroup("Enemy Detection")][SerializeField] public GameObject NearestEnemy;
     [TabGroup("Enemy Detection")][SerializeField] public LayerMask enemyLayerMask;
-    [TabGroup("Enemy Detection")][SerializeField] public float Radius;
-    
 
+    [TabGroup("Melee Detection")][SerializeField] public float Radius;
+    [TabGroup("Range Detection")][SerializeField] public float RadiusFarthest;
+    [TabGroup("Range Detection")][SerializeField] public float RadiusSlightFar;
+    [TabGroup("Range Detection")][SerializeField] public float RadiusClosest;
+
+    public Weapon CurrWeapon;
     private Quaternion originalUpperBodyRotation;
 
     private void Start()
     {
-        originalUpperBodyRotation = transform.localRotation;
-    
+        originalUpperBodyRotation = transform.localRotation;    
     }
     public void Update()
     {
@@ -38,14 +46,28 @@ public class BodyRotator : MonoBehaviour
         {
             StartCoroutine(ResetUpperBodyRotation());
         }
-   
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Radius);
+        if (CurrWeapon == Weapon.Melee)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, Radius);
+        }
+        else
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, Radius);
+
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireSphere(transform.position, 10);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, 15);
+        }
     }
+
     public void CheckEnemiesInRange()
     {
         _enemies.Clear();
@@ -75,10 +97,8 @@ public class BodyRotator : MonoBehaviour
 
     public void TargetEnemy()
     {
-
         //if (distance > minDistance)
         //{ /* Rotate */
-
         //}
         Vector3 targetPosition = new Vector3(NearestEnemy.transform.position.x, 0, NearestEnemy.transform.position.z);
         upperBody.transform.LookAt(targetPosition);
@@ -108,15 +128,10 @@ public class BodyRotator : MonoBehaviour
                 originalUpperBodyRotation,
                 elapsedTime / duration
             );
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         // Ensure the rotation is exactly the original at the end
         upperBody.localRotation = originalUpperBodyRotation;
-
     }
-   
-
 }

@@ -1018,6 +1018,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   Radius: 6
+  RadiusFarthest: 6
+  RadiusSlightFar: 12
+  RadiusClosest: 18
+  CurrWeapon: 0
 --- !u!114 &1810555034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1041,6 +1045,7 @@ MonoBehaviour:
     SerializationNodes: []
   _unitDataScriptable: {fileID: 11400000, guid: 4b48b7b299a479b45af9091c6c162fa7,
     type: 2}
+  _Weapon: {fileID: 11400000, guid: 8184882150db6ce47bb55744385191cd, type: 2}
 --- !u!1 &1978556693
 GameObject:
   m_ObjectHideFlags: 0
