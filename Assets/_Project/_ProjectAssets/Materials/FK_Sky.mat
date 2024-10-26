@@ -135,7 +135,7 @@ Material:
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
-    - _Exponent: 1
+    - _Exponent: 0.75
     - _FlatRimEdgeSmoothness: 0.5
     - _FlatRimLightAlign: 0
     - _FlatRimSize: 0.5
@@ -152,7 +152,7 @@ Material:
     - _GradientEnabled: 0
     - _GradientSize: 10
     - _GradientSpace: 0
-    - _Intensity: 0.3
+    - _Intensity: 0.5
     - _LightContribution: 0
     - _LightFalloffSize: 0
     - _LightmapDirectionPitch: 0
@@ -194,8 +194,8 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.9528302, g: 0.29214135, b: 0.29214135, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0, g: 0.9541254, b: 1, a: 0}
-    - _Color2: {r: 0.50980395, g: 0.5710101, b: 0.96862745, a: 0}
+    - _Color1: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 0}
+    - _Color2: {r: 1, g: 0.77327293, b: 0.41037738, a: 0}
     - _ColorDim: {r: 1, g: 1, b: 1, a: 1}
     - _ColorDimCurve: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
     - _ColorDimExtra: {r: 0.85023, g: 0.85034, b: 0.8504499, a: 0.85056}
