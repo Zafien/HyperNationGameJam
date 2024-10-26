@@ -1,11 +1,10 @@
-using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterUnit : BaseUnit
+public class EnemyUnit : BaseUnit
 {
-    [TabGroup("Current Weapon")][SerializeField] protected WeaponBaseScriptable _Weapon;
+
     // Update is called once per frame
     void Update()
     {
@@ -15,7 +14,5 @@ public class CharacterUnit : BaseUnit
     public override void DoDamage()
     {
         base.DoDamage();
-
-
     }
 }

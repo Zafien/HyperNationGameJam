@@ -58,4 +58,9 @@ public class BaseUnit : MonoExt, IHealth, IStatus
     {
        
     }
+
+    public virtual void DoDamage()
+    {
+
+    }
 }
