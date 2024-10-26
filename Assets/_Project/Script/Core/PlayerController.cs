@@ -68,7 +68,7 @@ namespace NF.Main.Gameplay
 
         public void Exchange()
         {
-
+            //Testing purposes Only
             if (Input.GetKeyDown(KeyCode.V))
             {
                 Vector3 tempPosition = this.transform.position;

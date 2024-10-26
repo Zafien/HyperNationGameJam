@@ -1,11 +1,12 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseUnit : MonoExt, IHealth, IStatus
 {
-  
 
+    [TabGroup("Reference")][SerializeField] protected BaseUnitScriptable _unitDataScriptable;
     // Start is called before the first frame update
 
 

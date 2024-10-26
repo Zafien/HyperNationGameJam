@@ -3,12 +3,15 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
+
 
 public class BodyRotator : MonoBehaviour
 {
 
     [TabGroup("BodyParts")][SerializeField] public Transform upperBody;
     [TabGroup("BodyParts")][SerializeField] public Transform feetTransform;
+    [TabGroup("BodyParts")][SerializeField] public Transform leftArm;
     [TabGroup("BodyPart Stats")][SerializeField] public float UpperBodyResetRotationSpeed;
 
     [TabGroup("Enemy Detection")][SerializeField] private List<GameObject> _enemies = new List<GameObject>();
@@ -19,10 +22,10 @@ public class BodyRotator : MonoBehaviour
 
     private Quaternion originalUpperBodyRotation;
 
-
     private void Start()
     {
         originalUpperBodyRotation = transform.localRotation;
+    
     }
     public void Update()
     {
@@ -73,8 +76,14 @@ public class BodyRotator : MonoBehaviour
     public void TargetEnemy()
     {
 
+        //if (distance > minDistance)
+        //{ /* Rotate */
+
+        //}
         Vector3 targetPosition = new Vector3(NearestEnemy.transform.position.x, 0, NearestEnemy.transform.position.z);
         upperBody.transform.LookAt(targetPosition);
+        leftArm.transform.LookAt(targetPosition);
+        //RotateHandTowardsEnemy();
     }
 
     void AddObjectToList(GameObject obj, List<GameObject> myList)
@@ -108,7 +117,6 @@ public class BodyRotator : MonoBehaviour
         upperBody.localRotation = originalUpperBodyRotation;
 
     }
-
-
+   
 
 }
