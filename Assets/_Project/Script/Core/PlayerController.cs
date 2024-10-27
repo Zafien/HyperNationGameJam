@@ -15,69 +15,70 @@ namespace NF.Main.Gameplay
 
     public class PlayerController : MonoExt
     {
-        [TabGroup("Move Stats")][SerializeField] public float moveSpeed = 5f;         // Movement speed
-        public float rotationSpeed = 10f;    // Rotation smoothing speed
-        private Rigidbody rb;                
-        private Vector2 movementInput;    
-        private PlayerInputActions inputActions;
+        [TabGroup("BodyPartsStats")][SerializeField] public float moveSpeed = 5f;          // Player movement speed
+        [TabGroup("BodyPartsStats")][SerializeField] public float rotationSpeed = 10f;     // Rotation speed for smooth turning
 
-        public Transform ExchangeObject;
+        public PlayerInputActions playerInputActions; 
+        private Vector2 moveInput;                   
+        private Rigidbody rb;                         
+        public Transform cameraTransform;        
 
-        void Awake()
+        private void Awake()
         {
-            // Initialize input actions and register movement callbacks
-            inputActions = new PlayerInputActions();
-            inputActions.Player.Move.performed += ctx => movementInput = ctx.ReadValue<Vector2>();
-            inputActions.Player.Move.canceled += ctx => movementInput = Vector2.zero;
-            rb = GetComponent<Rigidbody>();  
-   
+            rb = GetComponent<Rigidbody>();             // Get the Rigidbody component
+            rb.freezeRotation = true;                   // Prevent physics-based rotation
+
+            cameraTransform = Camera.main.transform;    // Get the main camera's transform
+
+            // Initialize and enable the input actions
+            playerInputActions = new PlayerInputActions();
+            playerInputActions.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
+            playerInputActions.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         }
 
-        void OnEnable() => inputActions.Player.Enable();
-        void OnDisable() => inputActions.Player.Disable();
 
+        private void OnEnable() => playerInputActions.Enable();
+        private void OnDisable() => playerInputActions.Disable();
 
-        private void Update()
+        private void FixedUpdate()
         {
-            Exchange();
-        }
-        void FixedUpdate()
-        {
-            MoveAndRotatePlayer();
+            MovePlayer();    // Handle movement
+            RotatePlayer();  // Handle rotation
         }
 
-        void MoveAndRotatePlayer()
+        private void MovePlayer()
         {
-           
-            Vector3 moveDirection = new Vector3(movementInput.x, 0f, movementInput.y).normalized;
+            // Get camera's forward and right directions (ignoring vertical movement)
+            Vector3 cameraForward = cameraTransform.forward;
+            Vector3 cameraRight = cameraTransform.right;
+            cameraForward.y = 0;
+            cameraRight.y = 0;
 
-            if (moveDirection.magnitude >= 0.1f)  // If there is movement input
+            // Normalize directions for consistent speed
+            cameraForward.Normalize();
+            cameraRight.Normalize();
+
+            // Calculate the movement direction based on input and camera orientation
+            Vector3 moveDirection = (cameraForward * moveInput.y + cameraRight * moveInput.x).normalized;
+
+            // Apply movement to the Rigidbody (locking Y-axis movement)
+            rb.velocity = new Vector3(moveDirection.x * moveSpeed, 0f, moveDirection.z * moveSpeed);
+        }
+
+        private void RotatePlayer()
+        {
+            if (moveInput != Vector2.zero)  // Rotate only if there is input
             {
-                // Move the player using Rigidbody
-                rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
+                // Calculate the adjusted direction based on camera orientation
+                Vector3 adjustedDirection = cameraTransform.forward * moveInput.y + cameraTransform.right * moveInput.x;
+                adjustedDirection.y = 0;  // Ignore vertical rotation
 
-                // Calculate the target angle based on movement direction
-                float targetAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
+                // Create a target rotation towards the movement direction
+                Quaternion targetRotation = Quaternion.LookRotation(adjustedDirection);
 
-                // Smoothly rotate the character to face the target direction
-                Quaternion targetRotation = Quaternion.Euler(0f, targetAngle, 0f);
-                rb.rotation = Quaternion.Slerp(rb.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+                // Smoothly rotate the player towards the target rotation
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
             }
-        }
-
-
-        public void Exchange()
-        {
-            //Testing purposes Only
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                Vector3 tempPosition = this.transform.position;
-
-                // Swap positions
-                this.transform.position = ExchangeObject.position;
-                ExchangeObject.position = tempPosition;
-            }
-           
         }
     }
 }
