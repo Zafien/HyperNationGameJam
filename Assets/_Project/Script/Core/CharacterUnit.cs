@@ -8,6 +8,8 @@ public class CharacterUnit : BaseUnit, IAttack
 {
     [TabGroup("Current Weapon")][SerializeField] protected WeaponBaseScriptable _Weapon;
     [TabGroup("Current Weapon")][SerializeField] protected int _damage;
+    [TabGroup("Current Weapon")][SerializeField] protected ParticleSystem MuzzleVfx;
+    [TabGroup("Current Weapon")][SerializeField] protected GameObject Bullet;
     public BodyRotator BodyRotator;
     public bool isDamaging;
     public float CoolDown;
@@ -49,5 +51,12 @@ public class CharacterUnit : BaseUnit, IAttack
         }
         Debug.Log("Coroutine Finshed!");
         isDamaging = false;
+    }
+
+
+    public void GunVFX()
+    {
+        MuzzleVfx.Play();
+       
     }
 }
