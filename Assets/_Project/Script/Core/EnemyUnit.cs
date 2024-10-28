@@ -11,8 +11,5 @@ public class EnemyUnit : BaseUnit
         
     }
 
-    public override void DoDamage()
-    {
-        base.DoDamage();
-    }
+
 }

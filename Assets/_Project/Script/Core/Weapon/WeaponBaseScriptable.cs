@@ -6,6 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapons", menuName = "ScriptableObject/Weapon", order = 2)]
 public class WeaponBaseScriptable : SerializedScriptableObject
 {
+    public float Damage;
+    public float CoolDown;
     // Start is called before the first frame update
     void Start()
     {
