@@ -71,20 +71,28 @@ public class BodyRotator : MonoBehaviour
     public void CheckEnemiesInRange()
     {
         _enemies.Clear();
+      
         float shortestDistance = Mathf.Infinity;
         Vector3 origin = transform.position;
         Collider[] colliders = Physics.OverlapSphere(origin, Radius, enemyLayerMask);
+      
         if (colliders.Length > 0)
         {
+            
             // Add enemies to the list
             foreach (var collider in colliders)
             {
+               
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
-
                 if (distance < shortestDistance)
                 {
                     shortestDistance = distance;
                     NearestEnemy = collider.gameObject; // Store the nearest enemy
+
+                    //if (NearestEnemy.GetComponent<EnemyUnit>()._healthData.IsAlive == false)
+                    //{
+                    //    NearestEnemy = null;
+                    //}
                 }
             }
 
@@ -116,6 +124,12 @@ public class BodyRotator : MonoBehaviour
     {
         if (!myList.Contains(obj))
             myList.Add(obj);
+    }
+
+    public void RemoveObjectFromList()
+    {
+
+        //_enemies.RemoveAll(character => !character._healthData.IsAlive);
     }
 
     private IEnumerator ResetUpperBodyRotation()

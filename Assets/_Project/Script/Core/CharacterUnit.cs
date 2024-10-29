@@ -27,10 +27,10 @@ public class CharacterUnit : BaseUnit, IAttack
 
     void Update()
     {
-     
+        DebugShootLine();
         if (BodyRotator.NearestEnemy != null && isDamaging == false)
         {
-
+         
             Vector3 directionToEnemy = BodyRotator.NearestEnemy.transform.position - transform.position;
 
             // Ensure Y is zero for aiming only on the XZ plane
@@ -57,7 +57,6 @@ public class CharacterUnit : BaseUnit, IAttack
         receiver.ModifyHealthAmount(damageAmount);
     }
 
-
     public IEnumerator Damageing()
     {
         isDamaging = true;
@@ -68,31 +67,48 @@ public class CharacterUnit : BaseUnit, IAttack
 
             Debug.Log("Coroutine started!");
             Shoot();
-            GunVFX();
-            //DoAttackDamage(enemy, _damage);
-              yield return new WaitForSeconds(CoolDown);
+            DoAttackDamage(enemy, _damage);
+            yield return new WaitForSeconds(CoolDown);
         }
         Debug.Log("Coroutine Finshed!");
         isDamaging = false;
     }
 
-
-    public void GunVFX()
-    {
-        MuzzleVfx.Play();
-       
-    }
-
     public void Shoot()
     {
-        
-        GameObject bullet = Instantiate(Bullet, BulletSpawnPoint.position, BulletSpawnPoint.rotation);
 
-        // (Optional) Add force if using a Rigidbody on the bullet
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        if (rb != null)
+        if (BodyRotator.NearestEnemy != null)
         {
-            rb.velocity = transform.forward * 80;
+            Vector3 start = BulletSpawnPoint.position;
+            Vector3 end = BodyRotator.NearestEnemy.transform.position;
+
+            // Calculate the direction from spawn point to enemy
+            Vector3 direction = (end - start).normalized;
+
+            // Instantiate the bullet at the spawn point
+            GameObject bullet = Instantiate(Bullet, start, Quaternion.LookRotation(direction));
+            Instantiate(MuzzleVfx, start, Quaternion.LookRotation(direction)); 
+            // Apply velocity in the calculated direction
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = direction * 80f;
+            }
+        }
+    }
+
+    private void DebugShootLine()
+    {
+        if (BodyRotator.NearestEnemy != null)
+        {
+            Vector3 start = BulletSpawnPoint.position;
+            Vector3 end = BodyRotator.NearestEnemy.transform.position;
+
+            // Draw a red line to visualize the shot
+            Debug.DrawLine(start, end, Color.red);
+
+            // Log the start and end points for further debugging
+            Debug.Log($"Shooting from: {start} to: {end}");
         }
     }
 }

@@ -60,7 +60,7 @@ public class BaseUnit : MonoExt, IHealth, IStatus
 
     public void OnDeath()
     {
-
+        Destroy(this);
     }
 
     public void AddStatus(Status status)
