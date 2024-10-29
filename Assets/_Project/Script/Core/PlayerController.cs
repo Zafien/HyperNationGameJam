@@ -20,12 +20,12 @@ namespace NF.Main.Gameplay
 
         public PlayerInputActions playerInputActions; 
         private Vector2 moveInput;                   
-        private Rigidbody rb;                         
+        public Rigidbody rb;                         
         public Transform cameraTransform;        
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();             // Get the Rigidbody component
+/*            rb = GetComponent<Rigidbody>();        */     // Get the Rigidbody component
             rb.freezeRotation = true;                   // Prevent physics-based rotation
 
             cameraTransform = Camera.main.transform;    // Get the main camera's transform

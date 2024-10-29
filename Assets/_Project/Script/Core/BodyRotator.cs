@@ -101,8 +101,14 @@ public class BodyRotator : MonoBehaviour
         //{ /* Rotate */
         //}
         Vector3 targetPosition = new Vector3(NearestEnemy.transform.position.x, 0, NearestEnemy.transform.position.z);
+
         upperBody.transform.LookAt(targetPosition);
         leftArm.transform.LookAt(targetPosition);
+
+        Quaternion rotation = upperBody.rotation;
+        rotation.x = 0;  // Zero out X rotation
+        rotation.z = 0;  // Zero out Z rotation
+        upperBody.rotation = rotation;
         //RotateHandTowardsEnemy();
     }
 
