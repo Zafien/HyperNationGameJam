@@ -20,7 +20,7 @@ public class BodyRotator : MonoBehaviour
     [TabGroup("BodyPart Stats")][SerializeField] public float UpperBodyResetRotationSpeed;
 
     [TabGroup("Enemy Detection")][SerializeField] private List<GameObject> _enemies = new List<GameObject>();
-    [TabGroup("Enemy Detection")][SerializeField] public GameObject NearestEnemy;
+    [TabGroup("Enemy Detection")][SerializeField] public BaseUnit NearestEnemy;
     [TabGroup("Enemy Detection")][SerializeField] public LayerMask enemyLayerMask;
 
     [TabGroup("Melee Detection")][SerializeField] public float Radius;
@@ -38,6 +38,7 @@ public class BodyRotator : MonoBehaviour
     public void Update()
     {
         CheckEnemiesInRange();
+        RemoveDeadObjects();
         if (NearestEnemy != null)
         {
             TargetEnemy();
@@ -82,13 +83,12 @@ public class BodyRotator : MonoBehaviour
             // Add enemies to the list
             foreach (var collider in colliders)
             {
-               
                 float distance = Vector3.Distance(transform.position, collider.transform.position);
                 if (distance < shortestDistance)
                 {
                     shortestDistance = distance;
-                    NearestEnemy = collider.gameObject; // Store the nearest enemy
-
+                    NearestEnemy = collider.gameObject.GetComponent<BaseUnit>(); // Store the nearest enemy
+                
                     //if (NearestEnemy.GetComponent<EnemyUnit>()._healthData.IsAlive == false)
                     //{
                     //    NearestEnemy = null;
@@ -126,10 +126,17 @@ public class BodyRotator : MonoBehaviour
             myList.Add(obj);
     }
 
-    public void RemoveObjectFromList()
+    public void RemoveDeadObjects()
     {
-
-        //_enemies.RemoveAll(character => !character._healthData.IsAlive);
+        
+        var test = GetComponent<BaseUnit>();
+        //Remove Dead objects
+        if (NearestEnemy != null && !test._healthData.IsAlive)
+        {
+            NearestEnemy = null;
+            Debug.LogError("No Enemy");
+        }
+     
     }
 
     private IEnumerator ResetUpperBodyRotation()

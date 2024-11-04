@@ -23,7 +23,7 @@ public class BaseUnitScriptable : SerializedScriptableObject
 }
 public class HealthData
 {
-    public HealthData() { }
+
     public HealthData(HealthData data)
     {
         HealthAmount = data.HealthAmount;
@@ -32,4 +32,5 @@ public class HealthData
     public int HealthAmount = 100;
     public bool IsInvulnerable = false;
     public bool IsAlive => HealthAmount > 0;
+
 }

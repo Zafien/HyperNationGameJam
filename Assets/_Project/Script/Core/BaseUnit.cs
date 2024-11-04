@@ -6,8 +6,8 @@ using UnityEngine.Rendering;
 using System;
 using System.Collections;
 using UniRx;
-using TMPro;
-using Unity.VisualScripting;
+
+
 
 public class BaseUnit : MonoExt, IHealth, IStatus
 {
@@ -17,6 +17,9 @@ public class BaseUnit : MonoExt, IHealth, IStatus
     // Start is called before the first frame update
 
     public Subject<int> OnHealthAmountChanged = new Subject<int>();
+
+    public Subject<Unit> Ondead = new Subject<Unit>();
+
     // Update is called once per frame
     void Update()
     {
@@ -34,7 +37,7 @@ public class BaseUnit : MonoExt, IHealth, IStatus
         base.Initialize(data);
         SetScriptableData();
         OnHealthAmountChanged = new Subject<int>();
-
+        Ondead = new Subject<Unit>();
 
 
     }
@@ -52,15 +55,23 @@ public class BaseUnit : MonoExt, IHealth, IStatus
         if (_healthData.IsAlive)
         {
             int healthAmount = _healthData.HealthAmount -= value;
+            OnDeath();
             OnHealthAmountChanged?.OnNext(healthAmount);
-            //OnDeath();
+
 
         }
     }
 
     public void OnDeath()
     {
-        Destroy(this);
+        if (_healthData.HealthAmount <= 0)
+        {
+            // Die
+            _healthData.HealthAmount = 0;
+            this.gameObject.SetActive(false);   
+            Ondead.OnNext(Unit.Default);
+            Debug.Log($"{this.gameObject.name} died");
+        }
     }
 
     public void AddStatus(Status status)

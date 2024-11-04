@@ -66,8 +66,10 @@ public class CharacterUnit : BaseUnit, IAttack
         {
 
             Debug.Log("Coroutine started!");
-            Shoot();
+       
             DoAttackDamage(enemy, _damage);
+
+            Shoot();
             yield return new WaitForSeconds(CoolDown);
         }
         Debug.Log("Coroutine Finshed!");
