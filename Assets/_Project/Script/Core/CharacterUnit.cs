@@ -41,8 +41,9 @@ public class CharacterUnit : BaseUnit, IAttack
             {
                 Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
                 transform.rotation = targetRotation; // Rotate the body towards the enemy
+                StartCoroutine(Damageing(BodyRotator.NearestEnemy));
             }
-            StartCoroutine(Damageing());
+      
         }
         else
         {
@@ -57,17 +58,17 @@ public class CharacterUnit : BaseUnit, IAttack
         receiver.ModifyHealthAmount(damageAmount);
     }
 
-    public IEnumerator Damageing()
+    public IEnumerator Damageing(BaseUnit target)
     {
         isDamaging = true;
 
-        var enemy = BodyRotator.NearestEnemy.GetComponent<BaseUnit>();
-        while (enemy._healthData.IsAlive && BodyRotator.NearestEnemy != null)
+      
+        while (BodyRotator.NearestEnemy != null)
         {
 
             Debug.Log("Coroutine started!");
        
-            DoAttackDamage(enemy, _damage);
+            //DoAttackDamage(target, _damage);
 
             Shoot();
             yield return new WaitForSeconds(CoolDown);

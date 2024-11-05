@@ -31,6 +31,14 @@ public class BaseUnit : MonoExt, IHealth, IStatus
         OnSubscriptionSet();
 
     }
+    public override void OnSubscriptionSet()
+    {
+        base.OnSubscriptionSet();
+        //AddEvent(_healthData.teste, _ => OnDeath());
+
+
+        //AddEvent(_dialogueManager.OnDialogueEnd, _ => OnDialogueEnd());
+    }    
 
     public override void Initialize(object data = null)
     {
@@ -64,6 +72,7 @@ public class BaseUnit : MonoExt, IHealth, IStatus
 
     public void OnDeath()
     {
+        //Use object pooling here
         if (_healthData.HealthAmount <= 0)
         {
             // Die
