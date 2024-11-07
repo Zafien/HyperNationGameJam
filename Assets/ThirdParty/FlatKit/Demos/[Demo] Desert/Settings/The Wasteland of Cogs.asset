@@ -15,13 +15,29 @@ MonoBehaviour:
   active: 1
   lift:
     m_OverrideState: 1
-    m_Value: {x: 0.99432236, y: 0.9834114, z: 1, w: 0}
+    m_Value: {x: 0.9824095, y: 1, z: 0.9984432, w: -0.019940179}
   gamma:
     m_OverrideState: 1
-    m_Value: {x: 0.99045527, y: 0.9809107, z: 1, w: -0.012217471}
+    m_Value: {x: 0.99997514, y: 0.99095833, z: 1, w: 0.027662892}
   gain:
-    m_OverrideState: 0
-    m_Value: {x: 0.9807173, y: 0.985538, z: 1, w: 0}
+    m_OverrideState: 1
+    m_Value: {x: 0.9807173, y: 0.985538, z: 1, w: 0.059820548}
+--- !u!114 &-892315336999227545
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 0
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0.254
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38,6 +54,7 @@ MonoBehaviour:
   - {fileID: 8484487375605585349}
   - {fileID: -3210416766352737100}
   - {fileID: 4204004884257310165}
+  - {fileID: -892315336999227545}
 --- !u!114 &4204004884257310165
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -53,16 +70,16 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.1509434, g: 0.06479175, b: 0.06479175, a: 1}
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
   center:
     m_OverrideState: 1
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.353
+    m_Value: 0.45
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.274
+    m_Value: 0.382
   rounded:
     m_OverrideState: 1
     m_Value: 0
@@ -108,8 +125,8 @@ MonoBehaviour:
     m_Value: 6
   dirtTexture:
     m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_Value: {fileID: 2800000, guid: 9b6f1d1fb45bc41ea899ec0aa1d82aa7, type: 3}
     dimension: 1
   dirtIntensity:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 5
