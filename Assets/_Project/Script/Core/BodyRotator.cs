@@ -1,17 +1,18 @@
-using Cysharp.Threading.Tasks;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using UniRx;
 using UnityEngine;
-using UnityEngine.XR;
+using TMPro;
+using Cysharp.Threading.Tasks;
+using System;
+using UnityEngine.UIElements;
 
-public enum Weapon
-{
-    Melee,
-    Gun
-}
 
-public class BodyRotator : MonoBehaviour
+
+public class BodyRotator : MonoExt
 {
 
     [TabGroup("BodyParts")][SerializeField] public Transform upperBody;
@@ -28,13 +29,28 @@ public class BodyRotator : MonoBehaviour
     [TabGroup("Range Detection")][SerializeField] public float RadiusSlightFar;
     [TabGroup("Range Detection")][SerializeField] public float RadiusClosest;
 
+    public Subject<Unit> OnStartShooting { get; private set; }
+
+
     public Weapon CurrWeapon;
     private Quaternion originalUpperBodyRotation;
 
+ 
+
+    private void Awake()
+    {
+        OnStartShooting = new Subject<Unit>();
+    }
+
+
     private void Start()
     {
-        originalUpperBodyRotation = transform.localRotation;    
+        Initialize();
+        OnSubscriptionSet();
+
+        originalUpperBodyRotation = transform.localRotation;
     }
+
     public void Update()
     {
         CheckEnemiesInRange();
@@ -42,6 +58,7 @@ public class BodyRotator : MonoBehaviour
         if (NearestEnemy != null)
         {
             TargetEnemy();
+            //RotateUpperBodyToTarget(upperBody,NearestEnemy.transform);
         }
         else
         {
@@ -100,25 +117,65 @@ public class BodyRotator : MonoBehaviour
         else
         {
             NearestEnemy = null;
+    
         }
     }
 
     public void TargetEnemy()
     {
-        //if (distance > minDistance)
-        //{ /* Rotate */
-        //}
-        Vector3 targetPosition = new Vector3(NearestEnemy.transform.position.x, 0, NearestEnemy.transform.position.z);
+        if (NearestEnemy == null) return;
 
-        upperBody.transform.LookAt(targetPosition);
-        leftArm.transform.LookAt(targetPosition);
+        // Rotation threshold for determining alignment
+        float rotationThreshold = 5f; // Adjust for sensitivity
 
-        Quaternion rotation = upperBody.rotation;
-        rotation.x = 0;  // Zero out X rotation
-        rotation.z = 0;  // Zero out Z rotation
-        upperBody.rotation = rotation;
-        //RotateHandTowardsEnemy();
+        // Calculate the target direction on the XZ plane
+        Vector3 targetPosition = new Vector3(NearestEnemy.transform.position.x, upperBody.position.y, NearestEnemy.transform.position.z);
+        Vector3 directionToTarget = targetPosition - upperBody.position;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+        // Gradually rotate upper body towards target rotation, constrained to Y-axis
+        float rotationSpeed = 1000f; // Adjust rotation speed as needed
+        upperBody.rotation = Quaternion.RotateTowards(upperBody.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        // Lock rotation to Y-axis only
+        upperBody.rotation = Quaternion.Euler(0, upperBody.rotation.eulerAngles.y, 0);
+
+        // Check if the left arm is aligned within the threshold
+        Quaternion leftArmTargetRotation = Quaternion.LookRotation(targetPosition - leftArm.position);
+        float angleDifference = Quaternion.Angle(leftArm.rotation, leftArmTargetRotation);
+
+        // If aligned, call OnStartShooting
+        if (angleDifference <= rotationThreshold)
+        {
+            OnStartShooting?.OnNext(Unit.Default);
+            Debug.Log("Shooting: Left arm aligned with the enemy.");
+        }
     }
+
+    public void RotateUpperBodyToTarget(Transform upperBody, Transform target)
+    {
+        // Ensure target is valid
+        if (target == null)
+            return;
+
+        // Calculate the direction to the enemy on the XZ plane
+        Vector3 directionToTarget = new Vector3(target.position.x, upperBody.position.y, target.position.z) - upperBody.position;
+
+        // Calculate the target rotation using LookRotation
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+        // Smoothly rotate the upper body towards the target
+        float rotationSpeed = 5f; // Adjust this speed as needed
+        upperBody.rotation = Quaternion.RotateTowards(upperBody.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+        // Zero out the x and z rotation to keep the upper body upright
+        Quaternion adjustedRotation = upperBody.rotation;
+        adjustedRotation.x = 0;
+        adjustedRotation.z = 0;
+        upperBody.rotation = adjustedRotation;
+    }
+
+
 
     void AddObjectToList(GameObject obj, List<GameObject> myList)
     {

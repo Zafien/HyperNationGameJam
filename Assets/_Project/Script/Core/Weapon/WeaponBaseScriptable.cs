@@ -8,6 +8,8 @@ public class WeaponBaseScriptable : SerializedScriptableObject
 {
     public float Damage;
     public float CoolDown;
+
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -20,3 +22,11 @@ public class WeaponBaseScriptable : SerializedScriptableObject
         
     }
 }
+public enum Weapon
+{
+    Melee,
+    Gun
+}
+
+
+

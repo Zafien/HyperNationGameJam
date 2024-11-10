@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,40 +18,61 @@ public class CharacterUnit : BaseUnit, IAttack
     public BodyRotator BodyRotator;
     public bool isDamaging;
     public float CoolDown;
-    // Update is called once per frame
 
-    public void LateUpdate()
+    // Update is called once per frame
+    
+
+
+    //Get the Data of the gun
+  
+    public override void Initialize(object data = null)
     {
-        
+        base.Initialize(data);
+
     }
 
+    public override void OnSubscriptionSet()
+    {
+        base.OnSubscriptionSet();
 
+        AddEvent(BodyRotator.OnStartShooting, _ => StartShooting());
+
+    }
     void Update()
     {
         DebugShootLine();
+  
+        
+    }
+
+    void StartShooting()
+    {
+
+
+
         if (BodyRotator.NearestEnemy != null && isDamaging == false)
         {
-         
-            Vector3 directionToEnemy = BodyRotator.NearestEnemy.transform.position - transform.position;
+            StartCoroutine(Damageing(BodyRotator.NearestEnemy));
+            //Vector3 directionToEnemy = BodyRotator.NearestEnemy.transform.position - transform.position;
 
-            // Ensure Y is zero for aiming only on the XZ plane
-            directionToEnemy.y = 0;
+            //// Ensure Y is zero for aiming only on the XZ plane
+            //directionToEnemy.y = 0;
 
-            // If there is a valid direction, rotate towards the enemy
-            if (directionToEnemy != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
-                transform.rotation = targetRotation; // Rotate the body towards the enemy
-                StartCoroutine(Damageing(BodyRotator.NearestEnemy));
-            }
-      
+            //// If there is a valid direction, rotate towards the enemy
+            //if (directionToEnemy != Vector3.zero)
+            //{
+            //    Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
+            //    BodyRotator.leftArm.transform.rotation = targetRotation; // Rotate the body towards the enemy
+            //    StartCoroutine(Damageing(BodyRotator.NearestEnemy));
+            //}
+
         }
         else
         {
 
         }
-        
     }
+ 
 
     [Button]
     public void DoAttackDamage(BaseUnit receiver, int damageAmount)
@@ -80,7 +102,7 @@ public class CharacterUnit : BaseUnit, IAttack
     public void Shoot()
     {
 
-        if (BodyRotator.NearestEnemy != null)
+        if (BodyRotator.NearestEnemy != null == true)
         {
             Vector3 start = BulletSpawnPoint.position;
             Vector3 end = BodyRotator.NearestEnemy.transform.position;
@@ -104,7 +126,7 @@ public class CharacterUnit : BaseUnit, IAttack
     {
         if (BodyRotator.NearestEnemy != null)
         {
-            Vector3 start = BulletSpawnPoint.position;
+            Vector3 start = BodyRotator.leftArm.position;
             Vector3 end = BodyRotator.NearestEnemy.transform.position;
 
             // Draw a red line to visualize the shot
