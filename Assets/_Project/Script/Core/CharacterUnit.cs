@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class CharacterUnit : BaseUnit, IAttack
 {
-    [TabGroup("Current Weapon")][SerializeField] protected WeaponBaseScriptable _Weapon;
+    [TabGroup("Current Weapon")][SerializeField] protected GunBaseScriptable _Weapon;
     [TabGroup("Current Weapon")][SerializeField] protected int _damage;
     [TabGroup("Current Weapon")][SerializeField] protected ParticleSystem MuzzleVfx;
     [TabGroup("Current Weapon")][SerializeField] protected GameObject Bullet;

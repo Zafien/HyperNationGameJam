@@ -3,13 +3,14 @@ using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapons", menuName = "ScriptableObject/Weapon", order = 2)]
-public class WeaponBaseScriptable : SerializedScriptableObject
+
+[CreateAssetMenu(fileName = "Weapons", menuName = "ScriptableObject/MeleeWeapon", order = 1)]
+public class MeleeBaseScriptable : SerializedScriptableObject
 {
+
     public float Damage;
     public float CoolDown;
-
-   
+    public float range;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,11 +23,3 @@ public class WeaponBaseScriptable : SerializedScriptableObject
         
     }
 }
-public enum Weapon
-{
-    Melee,
-    Gun
-}
-
-
-
