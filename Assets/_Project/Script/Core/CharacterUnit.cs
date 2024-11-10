@@ -8,13 +8,14 @@ using UnityEngine;
 
 public class CharacterUnit : BaseUnit, IAttack
 {
-    [TabGroup("Arsenal Weapons")][SerializeField] protected WeaponBaseScriptable _currWeapon;
+    [TabGroup("Arsenal Weapons")][SerializeField] protected WeaponBase _currWeapon;
 
-    [TabGroup("Current Weapon")][SerializeField] protected int _damage;
+    [TabGroup("Current Weapon")][SerializeField] protected int _damage; //Inside scriptable
     [TabGroup("Current Weapon")][SerializeField] protected ParticleSystem MuzzleVfx;
     [TabGroup("Current Weapon")][SerializeField] protected GameObject Bullet;
     [TabGroup("Current Weapon")][SerializeField] protected Transform BulletSpawnPoint;
-  
+
+
 
     public BodyRotator BodyRotator;
     public bool isDamaging;
@@ -50,6 +51,13 @@ public class CharacterUnit : BaseUnit, IAttack
         DebugShootLine();
   
         
+    }
+
+    protected override void SetScriptableData()
+    {
+        base.SetScriptableData();
+
+
     }
     void InitializeCurrWeapon()
     {

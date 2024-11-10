@@ -3430,7 +3430,7 @@ MonoBehaviour:
       Data: 
   _unitDataScriptable: {fileID: 11400000, guid: 4b48b7b299a479b45af9091c6c162fa7,
     type: 2}
-  _Weapon: {fileID: 11400000, guid: 8184882150db6ce47bb55744385191cd, type: 2}
+  _currWeapon: {fileID: 11400000, guid: 1a65829c9db13274d9eb50863ba9ebc4, type: 2}
   _damage: 0
   MuzzleVfx: {fileID: 3816638812358208182, guid: 6d0be4d246462024c9878cc5d68cf718,
     type: 3}
@@ -3439,6 +3439,8 @@ MonoBehaviour:
   BodyRotator: {fileID: 1810555033}
   isDamaging: 0
   CoolDown: 0.5
+  IsMeleeMode: 0
+  CurrentWeaponEnum: 1
 --- !u!136 &1810555035
 CapsuleCollider:
   m_ObjectHideFlags: 0
