@@ -8,7 +8,8 @@ using UnityEngine;
 
 public class CharacterUnit : BaseUnit, IAttack
 {
-    [TabGroup("Current Weapon")][SerializeField] protected GunBaseScriptable _Weapon;
+    [TabGroup("Arsenal Weapons")][SerializeField] protected WeaponBaseScriptable _currWeapon;
+
     [TabGroup("Current Weapon")][SerializeField] protected int _damage;
     [TabGroup("Current Weapon")][SerializeField] protected ParticleSystem MuzzleVfx;
     [TabGroup("Current Weapon")][SerializeField] protected GameObject Bullet;
@@ -19,6 +20,8 @@ public class CharacterUnit : BaseUnit, IAttack
     public bool isDamaging;
     public float CoolDown;
 
+    public bool IsMeleeMode;
+    public Weapon CurrentWeaponEnum;
     // Update is called once per frame
     
 
@@ -38,21 +41,33 @@ public class CharacterUnit : BaseUnit, IAttack
         AddEvent(BodyRotator.OnStartShooting, _ => StartShooting());
 
     }
+    void Awake()
+    {
+        InitializeCurrWeapon();
+    }
     void Update()
     {
         DebugShootLine();
   
         
     }
+    void InitializeCurrWeapon()
+    {
+        if (CurrentWeaponEnum == Weapon.Gun)
+        {
+            IsMeleeMode = false;
+        }
+        else
+        {
+            IsMeleeMode = true;
 
+        }
+    }
     void StartShooting()
     {
-
-
-
         if (BodyRotator.NearestEnemy != null && isDamaging == false)
         {
-            StartCoroutine(Damageing(BodyRotator.NearestEnemy));
+            StartCoroutine(Damaging(BodyRotator.NearestEnemy));
             //Vector3 directionToEnemy = BodyRotator.NearestEnemy.transform.position - transform.position;
 
             //// Ensure Y is zero for aiming only on the XZ plane
@@ -65,7 +80,6 @@ public class CharacterUnit : BaseUnit, IAttack
             //    BodyRotator.leftArm.transform.rotation = targetRotation; // Rotate the body towards the enemy
             //    StartCoroutine(Damageing(BodyRotator.NearestEnemy));
             //}
-
         }
         else
         {
@@ -80,7 +94,7 @@ public class CharacterUnit : BaseUnit, IAttack
         receiver.ModifyHealthAmount(damageAmount);
     }
 
-    public IEnumerator Damageing(BaseUnit target)
+    public IEnumerator Damaging(BaseUnit target)
     {
         isDamaging = true;
 
