@@ -95,8 +95,6 @@ public class CharacterUnit : BaseUnit, IAttack
         }
     }
  
-
-    [Button]
     public void DoAttackDamage(BaseUnit receiver, int damageAmount)
     {
         receiver.ModifyHealthAmount(damageAmount);

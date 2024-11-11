@@ -9732,6 +9732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifeTime: 5
+  Damage: 20
 --- !u!136 &3979152719656571492
 CapsuleCollider:
   m_ObjectHideFlags: 0
