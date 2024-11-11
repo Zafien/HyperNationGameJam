@@ -24,10 +24,9 @@ public class BodyRotator : MonoExt
     [TabGroup("Enemy Detection")][SerializeField] public BaseUnit NearestEnemy;
     [TabGroup("Enemy Detection")][SerializeField] public LayerMask enemyLayerMask;
 
-    [TabGroup("Melee Detection")][SerializeField] public float Radius;
-    [TabGroup("Range Detection")][SerializeField] public float RadiusFarthest;
-    [TabGroup("Range Detection")][SerializeField] public float RadiusSlightFar;
-    [TabGroup("Range Detection")][SerializeField] public float RadiusClosest;
+    [TabGroup("Melee Detection")][SerializeField] public float MeleeRadiusDetectionRange;
+    [TabGroup("Range Detection")][SerializeField] public float RangeRadiusDetectionRange;
+ 
 
     public Subject<Unit> OnStartShooting { get; private set; }
 
@@ -53,7 +52,7 @@ public class BodyRotator : MonoExt
 
     public void Update()
     {
-        CheckEnemiesInRange();
+        CheckEnemiesInRange(CurrWeapon);
         RemoveDeadObjects();
         if (NearestEnemy != null)
         {
@@ -71,29 +70,32 @@ public class BodyRotator : MonoExt
         if (CurrWeapon == Weapon.Melee)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, Radius);
+            Gizmos.DrawWireSphere(transform.position, MeleeRadiusDetectionRange);
         }
         else
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, Radius);
-
-            Gizmos.color = Color.black;
-            Gizmos.DrawWireSphere(transform.position, 10);
-
+        {    
+           
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, 15);
+            Gizmos.DrawWireSphere(transform.position, RangeRadiusDetectionRange);
         }
     }
 
-    public void CheckEnemiesInRange()
+    public void CheckEnemiesInRange(Weapon CurrentWeapon)
     {
         _enemies.Clear();
-      
+
+        float detectionRange = 0;
+        if (CurrentWeapon == Weapon.Melee)
+        {
+            detectionRange = MeleeRadiusDetectionRange;
+        }
+        else if (CurrentWeapon == Weapon.Gun)
+        {
+            detectionRange = RangeRadiusDetectionRange; 
+        }
         float shortestDistance = Mathf.Infinity;
         Vector3 origin = transform.position;
-        Collider[] colliders = Physics.OverlapSphere(origin, Radius, enemyLayerMask);
-      
+        Collider[] colliders = Physics.OverlapSphere(origin, detectionRange, enemyLayerMask);
         if (colliders.Length > 0)
         {
             
@@ -105,14 +107,8 @@ public class BodyRotator : MonoExt
                 {
                     shortestDistance = distance;
                     NearestEnemy = collider.gameObject.GetComponent<BaseUnit>(); // Store the nearest enemy
-                
-                    //if (NearestEnemy.GetComponent<EnemyUnit>()._healthData.IsAlive == false)
-                    //{
-                    //    NearestEnemy = null;
-                    //}
                 }
             }
-
         }
         else
         {

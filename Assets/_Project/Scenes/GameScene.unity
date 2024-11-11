@@ -3378,10 +3378,8 @@ MonoBehaviour:
   enemyLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  Radius: 20
-  RadiusFarthest: 6
-  RadiusSlightFar: 12
-  RadiusClosest: 18
+  MeleeRadiusDetectionRange: 5
+  RangeRadiusDetectionRange: 27.57
   CurrWeapon: 0
 --- !u!114 &1810555034
 MonoBehaviour:
