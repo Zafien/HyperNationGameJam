@@ -3369,6 +3369,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  _characterUnit: {fileID: 1810555034}
   upperBody: {fileID: 6796055576741559898}
   feetTransform: {fileID: 5489634831151571739}
   leftArm: {fileID: 432411079}
@@ -3380,7 +3381,6 @@ MonoBehaviour:
     m_Bits: 64
   MeleeRadiusDetectionRange: 5
   RangeRadiusDetectionRange: 27.57
-  CurrWeapon: 0
 --- !u!114 &1810555034
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 
 public class BodyRotator : MonoExt
 {
-
+    [SerializeField] private CharacterUnit _characterUnit; 
     [TabGroup("BodyParts")][SerializeField] public Transform upperBody;
     [TabGroup("BodyParts")][SerializeField] public Transform feetTransform;
     [TabGroup("BodyParts")][SerializeField] public Transform leftArm;
@@ -31,7 +31,7 @@ public class BodyRotator : MonoExt
     public Subject<Unit> OnStartShooting { get; private set; }
 
 
-    public Weapon CurrWeapon;
+
     private Quaternion originalUpperBodyRotation;
 
  
@@ -52,7 +52,7 @@ public class BodyRotator : MonoExt
 
     public void Update()
     {
-        CheckEnemiesInRange(CurrWeapon);
+        CheckEnemiesInRange(_characterUnit.CurrentWeaponEnum);
         RemoveDeadObjects();
         if (NearestEnemy != null)
         {
@@ -67,7 +67,7 @@ public class BodyRotator : MonoExt
 
     private void OnDrawGizmos()
     {
-        if (CurrWeapon == Weapon.Melee)
+        if (_characterUnit.CurrentWeaponEnum == Weapon.Melee)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, MeleeRadiusDetectionRange);
