@@ -9,8 +9,13 @@ public class LookAt : MonoBehaviour
 
     private void LateUpdate()
     {
-        
-        transform.LookAt(cam);
+        Vector3 directionToCamera = cam.position - transform.position;
+
+        // Keep the UI element upright by fixing the y-axis rotation
+        directionToCamera.y = 0;
+    
+        // Set the UI to look at the camera along this adjusted direction
+        transform.rotation = Quaternion.LookRotation(-directionToCamera);
     }
     void Start()
     {
