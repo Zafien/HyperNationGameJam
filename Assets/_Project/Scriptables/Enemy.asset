@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa71ab6704b7890429083c2446201442, type: 3}
-  m_Name: EnemyData
+  m_Name: Enemy
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2

@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3d64a2688865b64496c790c5b68e2df, type: 3}
-  m_Name: Wrench
+  m_Script: {fileID: 11500000, guid: b5cbabd517603064288851d24cf6d242, type: 3}
+  m_Name: Rifle
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,8 +21,12 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  weaponName: 
-  damage: 0
-  attackRate: 0
-  attackPoint: {fileID: 0}
-  Range: 0
+  WeaponData:
+    Damage: 20
+    Range1: 100
+    Range2: 200
+    Range3: 300
+    WeaponEffect: {fileID: 11400000, guid: 8c7a964ef9c814d47bf0aab3691e712d, type: 2}
+  WeaponEffect: {fileID: 11400000, guid: 8c7a964ef9c814d47bf0aab3691e712d, type: 2}
+  BulletPrefab: {fileID: 0}
+  RangeDamage: 10

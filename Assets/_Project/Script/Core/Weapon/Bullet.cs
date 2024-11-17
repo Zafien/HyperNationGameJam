@@ -9,6 +9,10 @@ public class Bullet : MonoBehaviour
     public int Damage;
 
 
+    //public float Range1;
+    //public float Range2;
+    //public float Range3;
+
     public void DoAttackDamage(BaseUnit receiver, int damageAmount)
     {
         receiver.ModifyHealthAmount(damageAmount);
@@ -23,5 +27,10 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
         }
      
+    }
+
+    public void RangeChecker(float minRange,float MaxRange)
+    {
+
     }
 }

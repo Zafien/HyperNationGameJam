@@ -28,10 +28,6 @@ public class HealthData
     {
         HealthAmount = data.HealthAmount;
     }
-    public void teste()
-    {
-        Debug.LogError("EVENT WORKING");
-    }
     public int HealthAmount = 100;
     public bool IsInvulnerable = false;
     public bool IsAlive => HealthAmount > 0;

@@ -268,6 +268,12 @@ PrefabInstance:
       objectReference: {fileID: 1810555030}
     - target: {fileID: 4592215801736716609, guid: 880b847cf8d790a45ad74d01028a3738,
         type: 3}
+      propertyPath: _unitDataScriptable
+      value: 
+      objectReference: {fileID: 11400000, guid: 661b18597b9361247b9053fb1c2bbf31,
+        type: 2}
+    - target: {fileID: 4592215801736716609, guid: 880b847cf8d790a45ad74d01028a3738,
+        type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 4592215801736716609, guid: 880b847cf8d790a45ad74d01028a3738,
@@ -606,6 +612,12 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1810555030}
+    - target: {fileID: 6066637367665343367, guid: 4fe6de758f4f2eb438fa428e4c4b2e82,
+        type: 3}
+      propertyPath: _unitDataScriptable
+      value: 
+      objectReference: {fileID: 11400000, guid: 661b18597b9361247b9053fb1c2bbf31,
+        type: 2}
     - target: {fileID: 6066637367665343367, guid: 4fe6de758f4f2eb438fa428e4c4b2e82,
         type: 3}
       propertyPath: serializationData.Prefab
@@ -1353,16 +1365,25 @@ MonoBehaviour:
   _unitDataScriptable: {fileID: 11400000, guid: 4b48b7b299a479b45af9091c6c162fa7,
     type: 2}
   _currWeapon: {fileID: 11400000, guid: 1a65829c9db13274d9eb50863ba9ebc4, type: 2}
+  _WeaponData:
+    Damage: 0
+    Range1: 0
+    Range2: 0
+    Range3: 0
+    WeaponEffect: {fileID: 0}
+  CurrentWeaponEnum: 1
   _damage: 0
   MuzzleVfx: {fileID: 3816638812358208182, guid: 6d0be4d246462024c9878cc5d68cf718,
     type: 3}
   Bullet: {fileID: 5385771069679124001, guid: bc783d067f46ed14f8e05cd34de4e7dc, type: 3}
   BulletSpawnPoint: {fileID: 2037714479}
+  CoolDown: 0.5
+  MainRange: 0
+  SecondRange: 0
+  ThirdRange: 0
   BodyRotator: {fileID: 1313761539}
   isDamaging: 0
-  CoolDown: 0.5
   IsMeleeMode: 0
-  CurrentWeaponEnum: 1
 --- !u!136 &1313761542
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1690,7 +1711,7 @@ GameObject:
   - component: {fileID: 1810555035}
   - component: {fileID: 1810555036}
   m_Layer: 0
-  m_Name: Character
+  m_Name: GO_Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1803,7 +1824,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   MeleeRadiusDetectionRange: 5
-  RangeRadiusDetectionRange: 27.57
+  RangeRadiusDetectionRange: 28
 --- !u!114 &1810555034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1852,16 +1873,25 @@ MonoBehaviour:
   _unitDataScriptable: {fileID: 11400000, guid: 4b48b7b299a479b45af9091c6c162fa7,
     type: 2}
   _currWeapon: {fileID: 11400000, guid: 1a65829c9db13274d9eb50863ba9ebc4, type: 2}
+  _WeaponData:
+    Damage: 0
+    Range1: 0
+    Range2: 0
+    Range3: 0
+    WeaponEffect: {fileID: 0}
+  CurrentWeaponEnum: 0
   _damage: 0
   MuzzleVfx: {fileID: 3816638812358208182, guid: 6d0be4d246462024c9878cc5d68cf718,
     type: 3}
-  Bullet: {fileID: 5385771069679124001, guid: bc783d067f46ed14f8e05cd34de4e7dc, type: 3}
+  Bullet: {fileID: -194091711322013146, guid: bc783d067f46ed14f8e05cd34de4e7dc, type: 3}
   BulletSpawnPoint: {fileID: 5606931870182287854}
+  CoolDown: 0.5
+  MainRange: 10
+  SecondRange: 20
+  ThirdRange: 26.88
   BodyRotator: {fileID: 1810555033}
   isDamaging: 0
-  CoolDown: 0.5
   IsMeleeMode: 0
-  CurrentWeaponEnum: 1
 --- !u!136 &1810555035
 CapsuleCollider:
   m_ObjectHideFlags: 0

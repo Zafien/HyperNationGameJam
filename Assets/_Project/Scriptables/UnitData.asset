@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5cbabd517603064288851d24cf6d242, type: 3}
-  m_Name: Rifle
+  m_Script: {fileID: 11500000, guid: aa71ab6704b7890429083c2446201442, type: 3}
+  m_Name: UnitData
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -20,12 +20,7 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes: []
-  weaponName: Normal Rifle
-  damage: 0
-  attackRate: 0
-  attackPoint: {fileID: 0}
-  WeaponEffect: {fileID: 0}
-  GunMainDamageRange: 4.34
-  GunSecondDamageRange: 17.24
-  GunThirdDamageRange: 30
+    SerializationNodes:
+    - Name: HealthData
+      Entry: 6
+      Data: 

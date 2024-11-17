@@ -7,10 +7,11 @@ using UnityEngine;
 public class MeleeWeapon : WeaponBase
 {
 
-    public float Range;
+    public float MeleeRange;
+    public float MeleeDamage;   
     public override void Attack()
     {
-        throw new System.NotImplementedException();
+
     }
 
     // Start is called before the first frame update
@@ -25,3 +26,5 @@ public class MeleeWeapon : WeaponBase
         
     }
 }
+
+

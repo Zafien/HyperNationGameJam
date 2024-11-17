@@ -5,30 +5,31 @@ using System.Data;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class CharacterUnit : BaseUnit, IAttack
 {
     [TabGroup("Arsenal Weapons")][SerializeField] protected WeaponBase _currWeapon;
 
+    [TabGroup("TEST WEAPON")][SerializeField][ReadOnly] public WeaponData _WeaponData;
+    [TabGroup("Current Weapon")] public Weapon CurrentWeaponEnum; 
     [TabGroup("Current Weapon")][SerializeField] protected int _damage; //Inside scriptable
     [TabGroup("Current Weapon")][SerializeField] protected ParticleSystem MuzzleVfx;
-    [TabGroup("Current Weapon")][SerializeField] protected GameObject Bullet;
+    [TabGroup("Current Weapon")][SerializeField] protected Bullet Bullet;
     [TabGroup("Current Weapon")][SerializeField] protected Transform BulletSpawnPoint;
-
+    [TabGroup("Current Weapon")] public float CoolDown;
+    [TabGroup("Current Weapon"), Range(0f, 10f)] public float MainRange; //Closest more damage
+    [TabGroup("Current Weapon"), Range(10f, 20f)] public float SecondRange; //second closes has slight damage
+    [TabGroup("Current Weapon"), Range(20f, 30f)] public float ThirdRange; //third closes has minimal damage
 
 
     public BodyRotator BodyRotator;
     public bool isDamaging;
-    public float CoolDown;
-
     public bool IsMeleeMode;
-    public Weapon CurrentWeaponEnum;
-    // Update is called once per frame
-    
 
 
-    //Get the Data of the gun
   
+
     public override void Initialize(object data = null)
     {
         base.Initialize(data);
@@ -42,6 +43,8 @@ public class CharacterUnit : BaseUnit, IAttack
         AddEvent(BodyRotator.OnStartShooting, _ => StartShooting());
 
     }
+
+    private void UpdateWeaponFromInspector(WeaponData weaponData) => _WeaponData = new WeaponData(weaponData);
     void Awake()
     {
         InitializeCurrWeapon();
@@ -56,7 +59,7 @@ public class CharacterUnit : BaseUnit, IAttack
     protected override void SetScriptableData()
     {
         base.SetScriptableData();
-
+        UpdateWeaponFromInspector(_currWeapon.WeaponData);
 
     }
     void InitializeCurrWeapon()
@@ -129,11 +132,12 @@ public class CharacterUnit : BaseUnit, IAttack
 
             // Calculate the direction from spawn point to enemy
             Vector3 direction = (end - start).normalized;
-
+        
             // Instantiate the bullet at the spawn point
-            GameObject bullet = Instantiate(Bullet, start, Quaternion.LookRotation(direction));
-            Instantiate(MuzzleVfx, start, Quaternion.LookRotation(direction)); 
+            GameObject bullet = Instantiate(Bullet.gameObject, start, Quaternion.LookRotation(direction));
+            Instantiate(MuzzleVfx, start, Quaternion.LookRotation(direction));
             // Apply velocity in the calculated direction
+
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -154,6 +158,27 @@ public class CharacterUnit : BaseUnit, IAttack
 
             // Log the start and end points for further debugging
             Debug.Log($"Shooting from: {start} to: {end}");
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (CurrentWeaponEnum == Weapon.Melee)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, MainRange);
+        }
+        else
+        {
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, MainRange);
+
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, SecondRange);
+
+            Gizmos.color = Color.black;
+            Gizmos.DrawWireSphere(transform.position, ThirdRange);
         }
     }
 }
