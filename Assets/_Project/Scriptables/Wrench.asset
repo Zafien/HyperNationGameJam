@@ -27,6 +27,7 @@ MonoBehaviour:
     WeaponType: 1
     VFXSpawnLocation: {fileID: 0}
     ParticleFx: {fileID: 19818802, guid: 7f45705f5f30d8a45af0fc2eb8c8998a, type: 3}
+    Radius: 5
     Range1: 20
     Range2: 0
     Range3: 0

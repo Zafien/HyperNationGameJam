@@ -45,6 +45,7 @@ public class WeaponData
         CoolDown = data.CoolDown;
         WeaponType = data.WeaponType;
         VFXSpawnLocation = data.VFXSpawnLocation;
+        Radius = data.Radius;
         Range1 = data.Range1;
         Range2 = data.Range2;   
         Range3 = data.Range3;
@@ -56,6 +57,7 @@ public class WeaponData
     public Weapon WeaponType;
     public Transform VFXSpawnLocation;
     public ParticleSystem ParticleFx;
+    public float Radius;
     public float Range1;
     public float Range2;
     public float Range3;
