@@ -13,7 +13,10 @@ public class MeleeWeapon : WeaponBase
     {
 
         Instantiate(WeaponData.ParticleFx, WeaponData.VFXSpawnLocation);
-
+        //var fxInstance = Instantiate(WeaponData.ParticleFx, WeaponData.VFXSpawnLocation.position * 20f, WeaponData.VFXSpawnLocation.rotation);
+        //// In Update:
+        //fxInstance.transform.position = WeaponData.VFXSpawnLocation.position;
+        //fxInstance.transform.rotation = WeaponData.VFXSpawnLocation.rotation;
     }
 
     // Start is called before the first frame update

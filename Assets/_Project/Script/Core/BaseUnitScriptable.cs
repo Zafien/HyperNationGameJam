@@ -28,7 +28,7 @@ public class HealthData
     {
         HealthAmount = data.HealthAmount;
     }
-    public int HealthAmount = 100;
+    public float HealthAmount = 100;
     public bool IsInvulnerable = false;
     public bool IsAlive => HealthAmount > 0;
 

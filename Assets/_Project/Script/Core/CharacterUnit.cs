@@ -86,7 +86,7 @@ public class CharacterUnit : BaseUnit, IAttack
     }
 
  
-    public void DoAttackDamage(BaseUnit receiver, int damageAmount)
+    public void DoAttackDamage(BaseUnit receiver, float damageAmount)
     {
         receiver.ModifyHealthAmount(damageAmount);
     }
@@ -138,6 +138,7 @@ public class CharacterUnit : BaseUnit, IAttack
         //Add animator
 
         _currWeapon.ApplyDamage();
+
         PerformAttack();
 
     }
@@ -145,14 +146,16 @@ public class CharacterUnit : BaseUnit, IAttack
     void PerformAttack()
     {
         // Define the center of the sphere (e.g., the player's position)
-        Vector3 attackPosition = transform.position + transform.forward * 10f;
+        Vector3 attackPosition = transform.position + transform.forward * 5f;
 
         // Detect colliders within the attack radius
         Collider[] hitColliders = Physics.OverlapSphere(attackPosition, _WeaponData.Radius, BodyRotator.enemyLayerMask);
-
+      
         foreach (Collider hitCollider in hitColliders)
         {
+            BaseUnit test = hitCollider.GetComponent<BaseUnit>();   
             // Try to get a component that can take damage (e.g., Health)
+            DoAttackDamage(test, _WeaponData.Damage);
             Debug.LogError("GOT ENEMY");
         }
     }
@@ -181,7 +184,7 @@ public class CharacterUnit : BaseUnit, IAttack
 
             // Visualize the attack radius in the scene view
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position + transform.forward * 10f, _WeaponData.Radius);
+            Gizmos.DrawWireSphere(transform.position + transform.forward * 5f, _WeaponData.Radius);
         }
         else
         {

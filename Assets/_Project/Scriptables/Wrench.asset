@@ -22,12 +22,13 @@ MonoBehaviour:
     PrefabModifications: []
     SerializationNodes: []
   WeaponData:
-    Damage: 1000
+    Damage: 40
     CoolDown: 1
     WeaponType: 1
     VFXSpawnLocation: {fileID: 0}
-    ParticleFx: {fileID: 19818802, guid: 7f45705f5f30d8a45af0fc2eb8c8998a, type: 3}
-    Radius: 5
+    ParticleFx: {fileID: 7546424494142222691, guid: cf956dff92da99246acf51634b640a54,
+      type: 3}
+    Radius: 3
     Range1: 20
     Range2: 0
     Range3: 0

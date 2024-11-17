@@ -1,4 +1,4 @@
 public interface IAttack
 {
-    public void DoAttackDamage(BaseUnit receiver, int damageAmount);
+    public void DoAttackDamage(BaseUnit receiver, float damageAmount);
 }

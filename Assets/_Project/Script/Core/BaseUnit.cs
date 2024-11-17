@@ -16,7 +16,7 @@ public class BaseUnit : MonoExt, IHealth, IStatus
     [TabGroup("Health")][SerializeField][ReadOnly] public HealthData _healthData;
     // Start is called before the first frame update
 
-    public Subject<int> OnHealthAmountChanged = new Subject<int>();
+    public Subject<float> OnHealthAmountChanged = new Subject<float>();
 
     public Subject<Unit> Ondead = new Subject<Unit>();
 
@@ -44,7 +44,7 @@ public class BaseUnit : MonoExt, IHealth, IStatus
     {
         base.Initialize(data);
         SetScriptableData();
-        OnHealthAmountChanged = new Subject<int>();
+        OnHealthAmountChanged = new Subject<float>();
         Ondead = new Subject<Unit>();
 
 
@@ -58,11 +58,11 @@ public class BaseUnit : MonoExt, IHealth, IStatus
 
     }
     private void UpdateHealthDataFromInspector(HealthData healthData) => _healthData = new HealthData(healthData);
-    public void ModifyHealthAmount(int value)
+    public void ModifyHealthAmount(float value)
     {
         if (_healthData.IsAlive)
         {
-            int healthAmount = _healthData.HealthAmount -= value;
+            float healthAmount = _healthData.HealthAmount -= value;
             OnDeath();
             OnHealthAmountChanged?.OnNext(healthAmount);
 

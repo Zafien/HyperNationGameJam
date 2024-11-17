@@ -23,9 +23,12 @@ MonoBehaviour:
     SerializationNodes: []
   WeaponData:
     Damage: 20
-    CoolDown: 2
+    CoolDown: 0.3
+    WeaponType: 0
+    VFXSpawnLocation: {fileID: 0}
+    ParticleFx: {fileID: 0}
+    Radius: 0
     Range1: 100
     Range2: 200
     Range3: 300
     WeaponEffect: {fileID: 11400000, guid: 8c7a964ef9c814d47bf0aab3691e712d, type: 2}
-  WeaponEffect: {fileID: 11400000, guid: 8c7a964ef9c814d47bf0aab3691e712d, type: 2}

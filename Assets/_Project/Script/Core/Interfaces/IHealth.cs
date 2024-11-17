@@ -1,6 +1,6 @@
 public interface IHealth
 {
     void OnDeath();
-    void ModifyHealthAmount(int value);
+    void ModifyHealthAmount(float value);
 
 }
