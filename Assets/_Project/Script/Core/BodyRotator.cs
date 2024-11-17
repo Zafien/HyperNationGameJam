@@ -52,11 +52,12 @@ public class BodyRotator : MonoExt
 
     public void Update()
     {
-        CheckEnemiesInRange(_characterUnit.CurrentWeaponEnum);
+        CheckEnemiesInRange(_characterUnit._WeaponData.WeaponType);
         RemoveDeadObjects();
         if (NearestEnemy != null)
         {
             TargetEnemy();
+
             //RotateUpperBodyToTarget(upperBody,NearestEnemy.transform);
         }
         else
@@ -67,7 +68,7 @@ public class BodyRotator : MonoExt
 
     private void OnDrawGizmos()
     {
-        if (_characterUnit.CurrentWeaponEnum == Weapon.Melee)
+        if (_characterUnit._WeaponData.WeaponType == Weapon.Melee)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, MeleeRadiusDetectionRange);
@@ -147,7 +148,14 @@ public class BodyRotator : MonoExt
             Debug.Log("Shooting: Left arm aligned with the enemy.");
         }
     }
+    public void TargetEnemyMelee()
+    {
 
+        Debug.LogError("MEEEELEEE FAIUDHA IUDWUI");
+
+
+    }
+    
     public void RotateUpperBodyToTarget(Transform upperBody, Transform target)
     {
         // Ensure target is valid

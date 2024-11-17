@@ -7,10 +7,12 @@ using UnityEngine;
 public class MeleeWeapon : WeaponBase
 {
 
-    public float MeleeRange;
-    public float MeleeDamage;   
-    public override void Attack()
+    //public float MeleeRange;
+    //public float MeleeDamage;   
+    public override void ApplyDamage()
     {
+
+        Instantiate(WeaponData.ParticleFx, WeaponData.VFXSpawnLocation);
 
     }
 

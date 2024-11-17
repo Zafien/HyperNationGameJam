@@ -1177,7 +1177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276127456}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MeleeVFXSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1191,12 +1191,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1276127455}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.43761238, y: 0.5243499, z: 0.576259, w: 0.4488631}
-  m_LocalPosition: {x: -1.2266254, y: 1.9651394, z: 1.5421681}
-  m_LocalScale: {x: 100, y: 100, z: 100.000015}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.09, z: 6.18}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1810555030}
+  m_Father: {fileID: 3012534613708171819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1306290297
 GameObject:
@@ -1367,11 +1367,14 @@ MonoBehaviour:
   _currWeapon: {fileID: 11400000, guid: 1a65829c9db13274d9eb50863ba9ebc4, type: 2}
   _WeaponData:
     Damage: 0
+    CoolDown: 0
+    WeaponType: 0
+    VFXSpawnLocation: {fileID: 0}
+    ParticleFx: {fileID: 0}
     Range1: 0
     Range2: 0
     Range3: 0
     WeaponEffect: {fileID: 0}
-  CurrentWeaponEnum: 1
   _damage: 0
   MuzzleVfx: {fileID: 3816638812358208182, guid: 6d0be4d246462024c9878cc5d68cf718,
     type: 3}
@@ -1731,7 +1734,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3012534613708171819}
-  - {fileID: 1276127456}
   m_Father: {fileID: 1509726904}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1810555031
@@ -1872,14 +1874,17 @@ MonoBehaviour:
       Data: 
   _unitDataScriptable: {fileID: 11400000, guid: 4b48b7b299a479b45af9091c6c162fa7,
     type: 2}
-  _currWeapon: {fileID: 11400000, guid: 1a65829c9db13274d9eb50863ba9ebc4, type: 2}
+  _currWeapon: {fileID: 11400000, guid: c6852f649dec4874a8e7776ff7973af9, type: 2}
   _WeaponData:
     Damage: 0
+    CoolDown: 0
+    WeaponType: 0
+    VFXSpawnLocation: {fileID: 0}
+    ParticleFx: {fileID: 0}
     Range1: 0
     Range2: 0
     Range3: 0
     WeaponEffect: {fileID: 0}
-  CurrentWeaponEnum: 0
   _damage: 0
   MuzzleVfx: {fileID: 3816638812358208182, guid: 6d0be4d246462024c9878cc5d68cf718,
     type: 3}
@@ -3126,6 +3131,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1276127456}
   - {fileID: 3078708519857705135}
   - {fileID: 2988907309507872631}
   - {fileID: 1012472199}

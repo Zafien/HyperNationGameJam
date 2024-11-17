@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.CompilerServices;
 using Unity.Collections.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class CharacterUnit : BaseUnit, IAttack
     [TabGroup("Arsenal Weapons")][SerializeField] protected WeaponBase _currWeapon;
 
     [TabGroup("TEST WEAPON")][SerializeField][ReadOnly] public WeaponData _WeaponData;
-    [TabGroup("Current Weapon")] public Weapon CurrentWeaponEnum; 
+ 
     [TabGroup("Current Weapon")][SerializeField] protected int _damage; //Inside scriptable
     [TabGroup("Current Weapon")][SerializeField] protected ParticleSystem MuzzleVfx;
     [TabGroup("Current Weapon")][SerializeField] protected Bullet Bullet;
@@ -33,7 +34,7 @@ public class CharacterUnit : BaseUnit, IAttack
     public override void Initialize(object data = null)
     {
         base.Initialize(data);
-
+        InvokeRepeating("Melee", 3f, 1f);
     }
 
     public override void OnSubscriptionSet()
@@ -64,39 +65,26 @@ public class CharacterUnit : BaseUnit, IAttack
     }
     void InitializeCurrWeapon()
     {
-        if (CurrentWeaponEnum == Weapon.Gun)
+
+        if (_WeaponData.WeaponType == Weapon.Gun)
         {
             IsMeleeMode = false;
         }
         else
         {
             IsMeleeMode = true;
-
+    
         }
     }
     void StartShooting()
     {
-        if (BodyRotator.NearestEnemy != null && isDamaging == false)
+        if (BodyRotator.NearestEnemy != null && isDamaging == false && _WeaponData.WeaponType == Weapon.Gun)
         {
             StartCoroutine(Damaging(BodyRotator.NearestEnemy));
-            //Vector3 directionToEnemy = BodyRotator.NearestEnemy.transform.position - transform.position;
-
-            //// Ensure Y is zero for aiming only on the XZ plane
-            //directionToEnemy.y = 0;
-
-            //// If there is a valid direction, rotate towards the enemy
-            //if (directionToEnemy != Vector3.zero)
-            //{
-            //    Quaternion targetRotation = Quaternion.LookRotation(directionToEnemy);
-            //    BodyRotator.leftArm.transform.rotation = targetRotation; // Rotate the body towards the enemy
-            //    StartCoroutine(Damageing(BodyRotator.NearestEnemy));
-            //}
-        }
-        else
-        {
-
+            Debug.LogError("IS SHOOTING");
         }
     }
+
  
     public void DoAttackDamage(BaseUnit receiver, int damageAmount)
     {
@@ -116,7 +104,7 @@ public class CharacterUnit : BaseUnit, IAttack
             //DoAttackDamage(target, _damage);
 
             Shoot();
-            yield return new WaitForSeconds(CoolDown);
+            yield return new WaitForSeconds(_WeaponData.CoolDown);
         }
         Debug.Log("Coroutine Finshed!");
         isDamaging = false;
@@ -125,7 +113,7 @@ public class CharacterUnit : BaseUnit, IAttack
     public void Shoot()
     {
 
-        if (BodyRotator.NearestEnemy != null == true)
+        if (BodyRotator.NearestEnemy != null)
         {
             Vector3 start = BulletSpawnPoint.position;
             Vector3 end = BodyRotator.NearestEnemy.transform.position;
@@ -145,6 +133,12 @@ public class CharacterUnit : BaseUnit, IAttack
             }
         }
     }
+    public void Melee()
+    {
+        //Add animator
+
+        _currWeapon.ApplyDamage();
+    }
 
     private void DebugShootLine()
     {
@@ -157,13 +151,13 @@ public class CharacterUnit : BaseUnit, IAttack
             Debug.DrawLine(start, end, Color.red);
 
             // Log the start and end points for further debugging
-            Debug.Log($"Shooting from: {start} to: {end}");
+            Debug.Log($"Distance from: {start} to: {end}");
         }
     }
 
     private void OnDrawGizmos()
     {
-        if (CurrentWeaponEnum == Weapon.Melee)
+        if (_WeaponData.WeaponType == Weapon.Melee)
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, MainRange);

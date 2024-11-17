@@ -7,11 +7,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Ranged Weapon", menuName = "Weapons/Ranged Weapon")]
 public class GunWeapon : WeaponBase
 {
-    public Bullet BulletPrefab;
-    public float RangeDamage;
-    public override void Attack()
+    //public Bullet BulletPrefab;
+    //public float RangeDamage;
+    public override void ApplyDamage()
     {
-       
+
+ 
+
     }
 
     // Start is called before the first frame update

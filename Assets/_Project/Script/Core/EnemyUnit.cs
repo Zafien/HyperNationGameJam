@@ -75,7 +75,7 @@ public class EnemyUnit : BaseUnit
    
     void Attack()
     {
-        Debug.Log("Attack!"); // Replace this with actual attack logic
+        Debug.Log("Attacking PLAYER"); // Replace this with actual attack logic
     }
     public void DropSomething()
     {

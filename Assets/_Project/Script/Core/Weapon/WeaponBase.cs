@@ -16,7 +16,7 @@ public abstract class WeaponBase : SerializedScriptableObject
     //public float AttackRate;
     //public Transform AttackPoint;
 
-    public WeapoonEffectBase WeaponEffect;
+  
 
     //[TabGroup("Range"), Range(0f, 10f)] public float GunMainDamageRange; //Closest more damage
     //[TabGroup("Range"), Range(10f, 20f)] public float GunSecondDamageRange; //second closes has slight damage
@@ -26,8 +26,13 @@ public abstract class WeaponBase : SerializedScriptableObject
 
     protected float NextAttackTime = 0f;
 
-    public abstract void Attack();
+    public abstract void ApplyDamage();
 
+
+    public void DamageCalculation()
+    {  
+
+    }
     //public void ActivateEffect(Transform attackPoint) 
 }
 
@@ -37,14 +42,20 @@ public class WeaponData
     public WeaponData(WeaponData data)
     {
         Damage = data.Damage;
+        CoolDown = data.CoolDown;
+        WeaponType = data.WeaponType;
+        VFXSpawnLocation = data.VFXSpawnLocation;
         Range1 = data.Range1;
         Range2 = data.Range2;   
         Range3 = data.Range3;
         WeaponEffect = data.WeaponEffect;
-
+        ParticleFx = data.ParticleFx;
     }
     public float Damage;
-
+    public float CoolDown;
+    public Weapon WeaponType;
+    public Transform VFXSpawnLocation;
+    public ParticleSystem ParticleFx;
     public float Range1;
     public float Range2;
     public float Range3;
