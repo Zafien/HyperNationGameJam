@@ -117,7 +117,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 8
-      minScalar: 6
+      minScalar: 10
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -618,7 +618,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 100, y: 100, z: 10}
+    m_Scale: {x: 200, y: 200, z: 10}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -816,7 +816,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 13
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1482,7 +1482,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 16.64
-      minScalar: -0.1
+      minScalar: 7
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4801,7 +4801,7 @@ Transform:
   m_GameObject: {fileID: 2490821635024527270}
   serializedVersion: 2
   m_LocalRotation: {x: -0.2649172, y: 0.38235474, z: -0.11541052, w: 0.87766975}
-  m_LocalPosition: {x: -0.0000019669533, y: -0.35070193, z: -1.1618748}
+  m_LocalPosition: {x: -0.0000019669533, y: 7.7, z: -6.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5045,7 +5045,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.3
-      minScalar: 0.5
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5393,7 +5393,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 100, y: 1, z: 100}
+    m_Scale: {x: 200, y: 1, z: 200}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
