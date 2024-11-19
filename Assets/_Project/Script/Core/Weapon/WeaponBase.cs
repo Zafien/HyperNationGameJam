@@ -26,7 +26,7 @@ public abstract class WeaponBase : SerializedScriptableObject
 
     protected float NextAttackTime = 0f;
 
-    public abstract void ApplyDamage();
+    public abstract void ActivateAttack();
 
 
     public void DamageCalculation()

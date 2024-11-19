@@ -1,12 +1,14 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
-using System.Runtime.CompilerServices;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
+using System.Linq;
+using System.Threading.Tasks;
+using UniRx;
 using UnityEngine;
-using UnityEngine.Rendering;
+using TMPro;
+using Cysharp.Threading.Tasks;
+using System;
+using UnityEngine.UIElements;
 
 public class CharacterUnit : BaseUnit, IAttack
 {
@@ -24,17 +26,19 @@ public class CharacterUnit : BaseUnit, IAttack
     [TabGroup("Current Weapon"), Range(20f, 30f)] public float ThirdRange; //third closes has minimal damage
 
 
+    [TabGroup("UI")] [SerializeField] private CharacterHudManager _characterHud; //third closes has minimal damage
+
     public BodyRotator BodyRotator;
     public bool isDamaging;
     public bool IsMeleeMode;
 
 
-  
+    public bool isOnCooldown = false;
 
     public override void Initialize(object data = null)
     {
         base.Initialize(data);
-        InvokeRepeating("Melee", 3f, 1f);
+
     }
 
     public override void OnSubscriptionSet()
@@ -49,12 +53,13 @@ public class CharacterUnit : BaseUnit, IAttack
     void Awake()
     {
         InitializeCurrWeapon();
+    
     }
     void Update()
     {
         DebugShootLine();
-  
-        
+
+        StartMelee();
     }
 
     protected override void SetScriptableData()
@@ -62,6 +67,8 @@ public class CharacterUnit : BaseUnit, IAttack
         base.SetScriptableData();
         UpdateWeaponFromInspector(_currWeapon.WeaponData);
 
+
+        _characterHud.SetImageMaxFloat(_characterHud.PlayerHudSkill, _WeaponData.CoolDown);
     }
     void InitializeCurrWeapon()
     {
@@ -84,7 +91,14 @@ public class CharacterUnit : BaseUnit, IAttack
             Debug.LogError("IS SHOOTING");
         }
     }
-
+    void StartMelee()
+    {
+        if (BodyRotator.NearestEnemy != null && isDamaging == false && _WeaponData.WeaponType == Weapon.Melee && isOnCooldown == false)
+        {
+            Melee();
+            StartCoroutine(MeleeAttackCoolDown(_WeaponData.CoolDown));
+        }
+    }
  
     public void DoAttackDamage(BaseUnit receiver, float damageAmount)
     {
@@ -133,15 +147,41 @@ public class CharacterUnit : BaseUnit, IAttack
             }
         }
     }
+ 
+    private IEnumerator MeleeAttackCoolDown(float cooldownDuration)
+    {
+        Debug.Log("Ability used!");
+        isOnCooldown = true;
+
+        float elapsedTime = 0f;
+  
+        // Gradually update the fill amount of the radial image
+        while (elapsedTime < cooldownDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            _characterHud.PlayerHudSkill.fillAmount = 1 - (elapsedTime / cooldownDuration); // Fill decreases over time
+        
+            yield return null; // Wait for the next frame
+        }
+
+      
+        _characterHud.PlayerHudSkill.fillAmount = cooldownDuration; // Cooldown complete
+        isOnCooldown = false;
+        Debug.Log("Ability ready again!");
+    }
+
     public void Melee()
     {
         //Add animator
+        if (isOnCooldown == false)
+        {
+            _currWeapon.ActivateAttack();
+            PerformAttack();
+        }
 
-        _currWeapon.ApplyDamage();
-
-        PerformAttack();
 
     }
+
 
     void PerformAttack()
     {
@@ -150,10 +190,10 @@ public class CharacterUnit : BaseUnit, IAttack
 
         // Detect colliders within the attack radius
         Collider[] hitColliders = Physics.OverlapSphere(attackPosition, _WeaponData.Radius, BodyRotator.enemyLayerMask);
-      
+
         foreach (Collider hitCollider in hitColliders)
         {
-            BaseUnit test = hitCollider.GetComponent<BaseUnit>();   
+            BaseUnit test = hitCollider.GetComponent<BaseUnit>();
             // Try to get a component that can take damage (e.g., Health)
             DoAttackDamage(test, _WeaponData.Damage);
             Debug.LogError("GOT ENEMY");

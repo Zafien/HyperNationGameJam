@@ -6,4 +6,5 @@ using UnityEngine;
 public abstract class WeapoonEffectBase : SerializedScriptableObject
 {
     public abstract void ApplyEffect(Vector3 position, Vector3 direction);
+    //Add cooldown
 }

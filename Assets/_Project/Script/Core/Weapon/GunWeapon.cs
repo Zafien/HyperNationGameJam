@@ -9,7 +9,7 @@ public class GunWeapon : WeaponBase
 {
     //public Bullet BulletPrefab;
     //public float RangeDamage;
-    public override void ApplyDamage()
+    public override void ActivateAttack()
     {
 
  
