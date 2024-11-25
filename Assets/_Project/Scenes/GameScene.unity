@@ -3889,7 +3889,7 @@ MonoBehaviour:
       Data: 
   _unitDataScriptable: {fileID: 11400000, guid: 4b48b7b299a479b45af9091c6c162fa7,
     type: 2}
-  _currWeapon: {fileID: 11400000, guid: c6852f649dec4874a8e7776ff7973af9, type: 2}
+  _currWeapon: {fileID: 11400000, guid: 1a65829c9db13274d9eb50863ba9ebc4, type: 2}
   _WeaponData:
     Damage: 0
     CoolDown: 0
