@@ -62,6 +62,7 @@ public class EnemyUnit : BaseUnit
             // Attack logic
             if (Time.time > lastAttackTime + attackCooldown)
             {
+                Debug.LogError("ATTACKING THE PLAYER");
                 Attack();
                 lastAttackTime = Time.time;
             }
@@ -75,13 +76,18 @@ public class EnemyUnit : BaseUnit
    
     void Attack()
     {
+        var _player = player.GetComponent<BaseUnit>();
         Debug.Log("Attacking PLAYER"); // Replace this with actual attack logic
+        DoAttackDamage(_player,5);
     }
     public void DropSomething()
     {
 
     }
-
+    public void DoAttackDamage(BaseUnit receiver, float damageAmount)
+    {
+        receiver.ModifyHealthAmount(damageAmount);
+    }
 
 
 }

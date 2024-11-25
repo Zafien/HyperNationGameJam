@@ -60,6 +60,8 @@ public class CharacterUnit : BaseUnit, IAttack
         DebugShootLine();
 
         StartMelee();
+        _characterHud.SetPlayerCurrentHp(_healthData.HealthAmount);
+      
     }
 
     protected override void SetScriptableData()
@@ -69,6 +71,7 @@ public class CharacterUnit : BaseUnit, IAttack
 
 
         _characterHud.SetImageMaxFloat(_characterHud.PlayerHudSkill, _WeaponData.CoolDown);
+        _characterHud.SetSliderMaxHp(_healthData.HealthAmount);
     }
     void InitializeCurrWeapon()
     {

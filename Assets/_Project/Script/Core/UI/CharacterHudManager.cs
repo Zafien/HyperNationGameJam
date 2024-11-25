@@ -10,7 +10,7 @@ public class CharacterHudManager : MonoExt
     // Start is called before the first frame update
     [SerializeField]private CharacterUnit _characterUnit;
     public Image PlayerHudSkill;
-
+    public Slider PlayerMaxHpSlider;
 
 
 
@@ -29,5 +29,16 @@ public class CharacterHudManager : MonoExt
     {
 
         Image.fillAmount = (100 / 100) * MaxValue;
+    }
+
+    public void SetSliderMaxHp(float MaxHp)
+    {
+        PlayerMaxHpSlider.maxValue = MaxHp;
+        PlayerMaxHpSlider.value = MaxHp;    
+    }
+
+    public void SetPlayerCurrentHp(float Hp)
+    {
+        PlayerMaxHpSlider.value = Hp;
     }
 }
