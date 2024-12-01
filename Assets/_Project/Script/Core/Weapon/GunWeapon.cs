@@ -9,6 +9,9 @@ public class GunWeapon : WeaponBase
 {
     //public Bullet BulletPrefab;
     //public float RangeDamage;
+
+    public GameObject Bullet;
+    public Transform BulletSpawnPoint;
     public override void ActivateAttack()
     {
 

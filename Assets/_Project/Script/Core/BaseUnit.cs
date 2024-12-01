@@ -13,7 +13,8 @@ public class BaseUnit : MonoExt, IHealth, IStatus
 {
 
     [TabGroup("Reference")][SerializeField] protected BaseUnitScriptable _unitDataScriptable;
-    [TabGroup("Health")][SerializeField][ReadOnly] public HealthData _healthData;
+    [TabGroup("Unit Stats")][SerializeField][ReadOnly] public UnitStats _unitStats;
+
     // Start is called before the first frame update
 
     public Subject<float> OnHealthAmountChanged = new Subject<float>();
@@ -52,17 +53,17 @@ public class BaseUnit : MonoExt, IHealth, IStatus
 
     protected virtual void SetScriptableData()
     {
-        UpdateHealthDataFromInspector(_unitDataScriptable.HealthData);
-
+        UpdateHealthDataFromInspector(_unitDataScriptable.UnitStats);
 
 
     }
-    private void UpdateHealthDataFromInspector(HealthData healthData) => _healthData = new HealthData(healthData);
+    private void UpdateHealthDataFromInspector(UnitStats UnitStats) => _unitStats = new UnitStats(UnitStats);
+
     public void ModifyHealthAmount(float value)
     {
-        if (_healthData.IsAlive)
+        if (_unitStats.IsAlive)
         {
-            float healthAmount = _healthData.HealthAmount -= value;
+            float healthAmount = _unitStats.HealthAmount -= value;
             OnDeath();
             OnHealthAmountChanged?.OnNext(healthAmount);
 
@@ -73,10 +74,10 @@ public class BaseUnit : MonoExt, IHealth, IStatus
     public void OnDeath()
     {
         //Use object pooling here
-        if (_healthData.HealthAmount <= 0)
+        if (_unitStats.HealthAmount <= 0)
         {
             // Die
-            _healthData.HealthAmount = 0;
+            _unitStats.HealthAmount = 0;
             this.gameObject.SetActive(false);   
             Ondead.OnNext(Unit.Default);
             Debug.Log($"{this.gameObject.name} died");

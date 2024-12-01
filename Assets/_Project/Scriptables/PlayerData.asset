@@ -20,16 +20,11 @@ MonoBehaviour:
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
-    SerializationNodes:
-    - Name: HealthData
-      Entry: 7
-      Data: 0|HealthData, Assembly-CSharp
-    - Name: HealthAmount
-      Entry: 3
-      Data: 200
-    - Name: IsInvulnerable
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
+    SerializationNodes: []
+  UnitStats:
+    HealthAmount: 200
+    Speed: 0
+    MaxExp: 100
+    CurrExp: 0
+    CurrLevel: 1
+    IsInvulnerable: 0

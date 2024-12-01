@@ -192,7 +192,7 @@ public class BodyRotator : MonoExt
         
         var test = GetComponent<BaseUnit>();
         //Remove Dead objects
-        if (NearestEnemy != null && !test._healthData.IsAlive)
+        if (NearestEnemy != null && !test._unitStats.IsAlive)
         {
             NearestEnemy = null;
             Debug.LogError("No Enemy");

@@ -9,19 +9,19 @@ public class CharacterHudManager : MonoExt
 {
     // Start is called before the first frame update
     [SerializeField]private CharacterUnit _characterUnit;
-    public Image PlayerHudSkill;
+    public Image PlayerCDImage;
     public Slider PlayerMaxHpSlider;
+    public Slider PlayerExpSlider;
 
-
-
-    private void Awake()
+    public override void Initialize(object data = null)
     {
-     
+        base.Initialize(data);
+
     }
 
-    protected virtual void Start()
+    public override void OnSubscriptionSet()
     {
-
+        AddEvent(_characterUnit.OnLevelUp, _ => UpdateExp());
     }
 
 
@@ -41,4 +41,33 @@ public class CharacterHudManager : MonoExt
     {
         PlayerMaxHpSlider.value = Hp;
     }
+
+    public void SetExp(float CurrExp, float MaxExp)
+    {
+       
+        PlayerExpSlider.value = CurrExp;
+        PlayerExpSlider.maxValue = MaxExp;
+    }
+    public void UpdateExp()
+    {
+        Debug.LogError("CHING GING");
+        PlayerExpSlider.value = _characterUnit._unitStats.CurrExp;
+    }
+
+    //public void SetExpMaxFloat(Image Image, float MaxValue)
+    //{
+
+    //    Image.fillAmount = (100 / 100) * MaxValue;
+    //}
+
+    //public void SetSliderMaxExp(float MaxExp)
+    //{
+    //    PlayerMaxHpSlider.maxValue = MaxExp;
+    //    PlayerMaxHpSlider.value = MaxExp;
+    //}
+
+    //public void SetPlayerCurrentExp(float Exp)
+    //{
+    //    PlayerMaxHpSlider.value = Hp;
+    //}
 }

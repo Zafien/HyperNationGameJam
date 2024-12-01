@@ -36,7 +36,7 @@ public class EnemyUnit : BaseUnit
     }
     void Update()
     {
-        EnemyUI.SetHealthBarUI(_healthData.HealthAmount);
+        EnemyUI.SetHealthBarUI(_unitStats.HealthAmount);
         MoveEnemy();
     }
 
@@ -88,6 +88,4 @@ public class EnemyUnit : BaseUnit
     {
         receiver.ModifyHealthAmount(damageAmount);
     }
-
-
 }

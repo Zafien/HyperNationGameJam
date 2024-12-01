@@ -10,22 +10,16 @@ using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine.UIElements;
 
+
 public class CharacterUnit : BaseUnit, IAttack
 {
-    [TabGroup("Arsenal Weapons")][SerializeField] protected WeaponBase _currWeapon;
-
-    [TabGroup("TEST WEAPON")][SerializeField][ReadOnly] public WeaponData _WeaponData;
+    [TabGroup("Main Weapon Data")][SerializeField] protected WeaponBase _currWeapon;
+    [TabGroup("Main Weapon Data")][SerializeField][ReadOnly] public WeaponData _WeaponData;
  
-    [TabGroup("Current Weapon")][SerializeField] protected int _damage; //Inside scriptable
-    [TabGroup("Current Weapon")][SerializeField] protected ParticleSystem MuzzleVfx;
-    [TabGroup("Current Weapon")][SerializeField] protected Bullet Bullet;
-    [TabGroup("Current Weapon")][SerializeField] protected Transform BulletSpawnPoint;
-    [TabGroup("Current Weapon")] public float CoolDown;
-    [TabGroup("Current Weapon"), Range(0f, 10f)] public float MainRange; //Closest more damage
-    [TabGroup("Current Weapon"), Range(10f, 20f)] public float SecondRange; //second closes has slight damage
-    [TabGroup("Current Weapon"), Range(20f, 30f)] public float ThirdRange; //third closes has minimal damage
 
-
+    [TabGroup("Weapon Gizmos"), Range(0f, 10f)] public float MainRange; //Closest more damage
+    [TabGroup("Weapon Gizmos"), Range(10f, 20f)] public float SecondRange; //second closes has slight damage
+    [TabGroup("Weapon Gizmos"), Range(20f, 30f)] public float ThirdRange; //third closes has minimal damage
     [TabGroup("UI")] [SerializeField] private CharacterHudManager _characterHud; //third closes has minimal damage
 
     public BodyRotator BodyRotator;
@@ -34,6 +28,8 @@ public class CharacterUnit : BaseUnit, IAttack
 
 
     public bool isOnCooldown = false;
+
+    public Subject<Unit> OnLevelUp { get; private set; }
 
     public override void Initialize(object data = null)
     {
@@ -53,15 +49,15 @@ public class CharacterUnit : BaseUnit, IAttack
     void Awake()
     {
         InitializeCurrWeapon();
-    
+        OnLevelUp = new Subject<Unit>();
     }
     void Update()
     {
         DebugShootLine();
 
         StartMelee();
-        _characterHud.SetPlayerCurrentHp(_healthData.HealthAmount);
-      
+        _characterHud.SetPlayerCurrentHp(_unitStats.HealthAmount);
+        //_characterHud.SetExp(_unitStats.CurrExp, _unitStats.MaxExp);
     }
 
     protected override void SetScriptableData()
@@ -69,9 +65,10 @@ public class CharacterUnit : BaseUnit, IAttack
         base.SetScriptableData();
         UpdateWeaponFromInspector(_currWeapon.WeaponData);
 
+        _characterHud.SetImageMaxFloat(_characterHud.PlayerCDImage, _WeaponData.CoolDown);
+        _characterHud.SetSliderMaxHp(_unitStats.HealthAmount);
 
-        _characterHud.SetImageMaxFloat(_characterHud.PlayerHudSkill, _WeaponData.CoolDown);
-        _characterHud.SetSliderMaxHp(_healthData.HealthAmount);
+
     }
     void InitializeCurrWeapon()
     {
@@ -88,18 +85,19 @@ public class CharacterUnit : BaseUnit, IAttack
     }
     void StartShooting()
     {
-        if (BodyRotator.NearestEnemy != null && isDamaging == false && _WeaponData.WeaponType == Weapon.Gun)
+        if (BodyRotator.NearestEnemy != null && isDamaging == false && _WeaponData.WeaponType == Weapon.Gun && isOnCooldown == false)
         {
-            StartCoroutine(Damaging(BodyRotator.NearestEnemy));
+            ShootEnemy();      
             Debug.LogError("IS SHOOTING");
+            StartCoroutine(WeaponCoolDown(_currWeapon.WeaponData.CoolDown));
         }
     }
     void StartMelee()
     {
         if (BodyRotator.NearestEnemy != null && isDamaging == false && _WeaponData.WeaponType == Weapon.Melee && isOnCooldown == false)
         {
-            Melee();
-            StartCoroutine(MeleeAttackCoolDown(_WeaponData.CoolDown));
+            MeleeEnemy();
+            StartCoroutine(WeaponCoolDown(_currWeapon.WeaponData.CoolDown));
         }
     }
  
@@ -108,39 +106,21 @@ public class CharacterUnit : BaseUnit, IAttack
         receiver.ModifyHealthAmount(damageAmount);
     }
 
-    public IEnumerator Damaging(BaseUnit target)
-    {
-        isDamaging = true;
-
-      
-        while (BodyRotator.NearestEnemy != null)
-        {
-
-            Debug.Log("Coroutine started!");
-       
-            //DoAttackDamage(target, _damage);
-
-            Shoot();
-            yield return new WaitForSeconds(_WeaponData.CoolDown);
-        }
-        Debug.Log("Coroutine Finshed!");
-        isDamaging = false;
-    }
-
+   
     public void Shoot()
     {
 
         if (BodyRotator.NearestEnemy != null)
         {
-            Vector3 start = BulletSpawnPoint.position;
+            Vector3 start = _currWeapon.GunWeaponData.BulletSpawnPoint.position;
             Vector3 end = BodyRotator.NearestEnemy.transform.position;
 
             // Calculate the direction from spawn point to enemy
             Vector3 direction = (end - start).normalized;
         
             // Instantiate the bullet at the spawn point
-            GameObject bullet = Instantiate(Bullet.gameObject, start, Quaternion.LookRotation(direction));
-            Instantiate(MuzzleVfx, start, Quaternion.LookRotation(direction));
+            GameObject bullet = Instantiate(_currWeapon.GunWeaponData.Bullet, start, Quaternion.LookRotation(direction));
+            Instantiate(bullet, start, Quaternion.LookRotation(direction));
             // Apply velocity in the calculated direction
 
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
@@ -150,30 +130,40 @@ public class CharacterUnit : BaseUnit, IAttack
             }
         }
     }
- 
-    private IEnumerator MeleeAttackCoolDown(float cooldownDuration)
+
+
+  
+
+    public IEnumerator WeaponCoolDown(float CoolDownDuration)
     {
         Debug.Log("Ability used!");
         isOnCooldown = true;
 
         float elapsedTime = 0f;
-  
+
         // Gradually update the fill amount of the radial image
-        while (elapsedTime < cooldownDuration)
+        while (elapsedTime < CoolDownDuration)
         {
             elapsedTime += Time.deltaTime;
-            _characterHud.PlayerHudSkill.fillAmount = 1 - (elapsedTime / cooldownDuration); // Fill decreases over time
-        
+            _characterHud.PlayerCDImage.fillAmount = 1 - (elapsedTime / CoolDownDuration); // Fill decreases over time
+
             yield return null; // Wait for the next frame
         }
 
-      
-        _characterHud.PlayerHudSkill.fillAmount = cooldownDuration; // Cooldown complete
+
+        _characterHud.PlayerCDImage.fillAmount = CoolDownDuration; // Cooldown complete
         isOnCooldown = false;
         Debug.Log("Ability ready again!");
     }
 
-    public void Melee()
+    public void ShootEnemy()
+    {
+        if (isOnCooldown == false)
+        {
+            Shoot();
+        }
+    }
+    public void MeleeEnemy()
     {
         //Add animator
         if (isOnCooldown == false)
@@ -181,8 +171,6 @@ public class CharacterUnit : BaseUnit, IAttack
             _currWeapon.ActivateAttack();
             PerformAttack();
         }
-
-
     }
 
 
@@ -203,6 +191,8 @@ public class CharacterUnit : BaseUnit, IAttack
         }
     }
 
+
+
     private void DebugShootLine()
     {
         if (BodyRotator.NearestEnemy != null)
@@ -218,6 +208,7 @@ public class CharacterUnit : BaseUnit, IAttack
         }
     }
 
+ 
     private void OnDrawGizmos()
     {
         if (_WeaponData.WeaponType == Weapon.Melee)
@@ -243,5 +234,31 @@ public class CharacterUnit : BaseUnit, IAttack
         }
     }
 
+    [Button]
+    public void OnGainExp(float Exp)
+    {
+        _unitStats.CurrExp += Exp;
+        OnLevelUp?.OnNext(Unit.Default);
+        if (_unitStats.CurrExp >= _unitStats.MaxExp)
+        {
+            Debug.LogError("LEVEL UP");
+
+            LevelUp();
+   
+        }
+    }
+    public void LevelUp()
+    {
+        _unitStats.CurrExp -= _unitStats.MaxExp;
+        _unitStats.CurrLevel++;
+        _unitStats.MaxExp = CalculateNewMaxExp(_unitStats.CurrLevel);
+     
+    }
+
+    private float CalculateNewMaxExp(int level)
+    {
+        // Example formula: MaxExp increases exponentially
+        return 100 * Mathf.Pow(1.5f, level - 1);
+    }
 
 }

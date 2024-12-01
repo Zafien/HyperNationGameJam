@@ -9,7 +9,8 @@ using UnityEngine;
 public abstract class WeaponBase : SerializedScriptableObject
 {
     public WeaponData WeaponData;
-
+    public GunWeapon GunWeaponData;
+    public MeleeWeapon MeleeWeaponData;
     //public Weapon WeaponType;
     //public string WeaponName;
     //public int Damage;
