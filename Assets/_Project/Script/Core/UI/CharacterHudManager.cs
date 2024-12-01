@@ -12,16 +12,19 @@ public class CharacterHudManager : MonoExt
     public Image PlayerCDImage;
     public Slider PlayerMaxHpSlider;
     public Slider PlayerExpSlider;
-
+    private void Start()
+    {
+        Initialize();
+        OnSubscriptionSet();
+    }
     public override void Initialize(object data = null)
     {
-        base.Initialize(data);
-
+        base.Initialize(data);  
     }
 
     public override void OnSubscriptionSet()
     {
-        AddEvent(_characterUnit.OnLevelUp, _ => UpdateExp());
+        AddEvent(_characterUnit.OnGainingExp, _ => UpdateExp());
     }
 
 

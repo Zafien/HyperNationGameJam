@@ -29,7 +29,7 @@ public class CharacterUnit : BaseUnit, IAttack
 
     public bool isOnCooldown = false;
 
-    public Subject<Unit> OnLevelUp { get; private set; }
+    public Subject<Unit> OnGainingExp { get; private set; }
 
     public override void Initialize(object data = null)
     {
@@ -37,20 +37,22 @@ public class CharacterUnit : BaseUnit, IAttack
 
     }
 
+    void Awake()
+    {
+        InitializeCurrWeapon();
+        OnGainingExp = new Subject<Unit>();
+    }
+
     public override void OnSubscriptionSet()
     {
         base.OnSubscriptionSet();
 
         AddEvent(BodyRotator.OnStartShooting, _ => StartShooting());
-
+        _characterHud.SetExp(_unitStats.CurrExp, _unitStats.MaxExp);
     }
 
     private void UpdateWeaponFromInspector(WeaponData weaponData) => _WeaponData = new WeaponData(weaponData);
-    void Awake()
-    {
-        InitializeCurrWeapon();
-        OnLevelUp = new Subject<Unit>();
-    }
+  
     void Update()
     {
         DebugShootLine();
@@ -238,7 +240,7 @@ public class CharacterUnit : BaseUnit, IAttack
     public void OnGainExp(float Exp)
     {
         _unitStats.CurrExp += Exp;
-        OnLevelUp?.OnNext(Unit.Default);
+        OnGainingExp?.OnNext(Unit.Default);
         if (_unitStats.CurrExp >= _unitStats.MaxExp)
         {
             Debug.LogError("LEVEL UP");
