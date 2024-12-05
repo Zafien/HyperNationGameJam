@@ -153,7 +153,7 @@ public class CharacterUnit : BaseUnit, IAttack
         }
 
 
-        _characterHud.PlayerCDImage.fillAmount = CoolDownDuration; // Cooldown complete
+        _characterHud.PlayerCDImage.fillAmount = 1; // Cooldown complete
         isOnCooldown = false;
         Debug.Log("Ability ready again!");
     }
@@ -251,6 +251,7 @@ public class CharacterUnit : BaseUnit, IAttack
     }
     public void LevelUp()
     {
+        //Reset Value of UI slider 
         _unitStats.CurrExp -= _unitStats.MaxExp;
         _unitStats.CurrLevel++;
         _unitStats.MaxExp = CalculateNewMaxExp(_unitStats.CurrLevel);

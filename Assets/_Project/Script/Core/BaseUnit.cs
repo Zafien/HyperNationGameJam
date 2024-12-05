@@ -78,7 +78,7 @@ public class BaseUnit : MonoExt, IHealth, IStatus
         {
             // Die
             _unitStats.HealthAmount = 0;
-            this.gameObject.SetActive(false);   
+            StartCoroutine(DeathTimer());
             Ondead.OnNext(Unit.Default);
             Debug.Log($"{this.gameObject.name} died");
         }
@@ -92,5 +92,11 @@ public class BaseUnit : MonoExt, IHealth, IStatus
     public void RemoveStatus(Status status)
     {
        
+    }
+
+    IEnumerator DeathTimer()
+    {
+        yield return new WaitForSeconds(1f);
+        this.gameObject.SetActive(false);
     }
 }

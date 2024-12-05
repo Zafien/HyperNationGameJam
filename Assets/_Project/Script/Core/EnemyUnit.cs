@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
 public class EnemyUnit : BaseUnit
 {
     BaseUnit basetest;
     public EnemyUI EnemyUI;
 
-    public Transform player; // Assign the player GameObject in the Inspector
+    public CharacterUnit playerGo; // Assign the player GameObject in the Inspector
     public float attackDistance = 5f; // Distance to stop and attack
     public float attackCooldown = 2f; // Time between attacks
 
@@ -25,8 +26,8 @@ public class EnemyUnit : BaseUnit
     public override void OnSubscriptionSet()
     {
         base.OnSubscriptionSet();
+        AddEvent(Ondead, _ => EnemyDead());
 
-   
 
     }
     private void Awake()
@@ -38,21 +39,23 @@ public class EnemyUnit : BaseUnit
     {
         EnemyUI.SetHealthBarUI(_unitStats.HealthAmount);
         MoveEnemy();
+
     }
 
 
     public void MoveEnemy()
     {
+        if (playerGo == null) return;
 
-        if (player == null) return;
+        Transform PlayerTransform = playerGo.gameObject.transform;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, PlayerTransform.position);
 
         if (distanceToPlayer > attackDistance)
         {
             // Follow the player
             agent.isStopped = false;
-            agent.SetDestination(player.position);
+            agent.SetDestination(PlayerTransform.position);
         }
         else
         {
@@ -68,7 +71,7 @@ public class EnemyUnit : BaseUnit
             }
 
             // Face the player
-            Vector3 direction = (player.position - transform.position).normalized;
+            Vector3 direction = (PlayerTransform.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
@@ -76,13 +79,18 @@ public class EnemyUnit : BaseUnit
    
     void Attack()
     {
-        var _player = player.GetComponent<BaseUnit>();
+       
         Debug.Log("Attacking PLAYER"); // Replace this with actual attack logic
-        DoAttackDamage(_player,5);
+        DoAttackDamage(playerGo, 5);
     }
-    public void DropSomething()
-    {
 
+    public void EnemyDead()
+    {
+        DropExpAndItem(playerGo);
+    }
+    public void DropExpAndItem(CharacterUnit receiver)
+    {
+        receiver.OnGainExp(20);
     }
     public void DoAttackDamage(BaseUnit receiver, float damageAmount)
     {
