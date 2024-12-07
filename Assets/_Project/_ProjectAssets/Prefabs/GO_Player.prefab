@@ -822,7 +822,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2871600280972393416}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -852,29 +852,24 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _healthData
-      Entry: 7
-      Data: 0|HealthData, Assembly-CSharp
-    - Name: HealthAmount
-      Entry: 4
-      Data: 0
-    - Name: IsInvulnerable
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: OnHealthAmountChanged
       Entry: 6
       Data: 
     - Name: Ondead
       Entry: 7
-      Data: 1|UniRx.Subject`1[[UniRx.Unit, UniRx]], UniRx
+      Data: 0|UniRx.Subject`1[[UniRx.Unit, UniRx]], UniRx
     - Name: 
       Entry: 8
       Data: 
   _unitDataScriptable: {fileID: 11400000, guid: 4b48b7b299a479b45af9091c6c162fa7,
     type: 2}
+  _unitStats:
+    HealthAmount: 0
+    Speed: 0
+    MaxExp: 100
+    CurrExp: 10
+    CurrLevel: 1
+    IsInvulnerable: 0
   _currWeapon: {fileID: 11400000, guid: 1a65829c9db13274d9eb50863ba9ebc4, type: 2}
   _WeaponData:
     Damage: 0
@@ -887,19 +882,10 @@ MonoBehaviour:
     Range2: 0
     Range3: 0
     WeaponEffect: {fileID: 0}
-  _damage: 0
-  MuzzleVfx: {fileID: 3816638812358208182, guid: 6d0be4d246462024c9878cc5d68cf718,
-    type: 3}
-  BulletGun: {fileID: 0}
-  BulletSpawnPoint: {fileID: 260896216270019694}
-  CoolDown: 0.5
   MainRange: 10
   SecondRange: 20
   ThirdRange: 26.88
   _characterHud: {fileID: 0}
-  _characterExpData:
-    MaxExp: 0
-    CurrentExp: 0
   BodyRotator: {fileID: 1415194896837739972}
   isDamaging: 0
   IsMeleeMode: 0

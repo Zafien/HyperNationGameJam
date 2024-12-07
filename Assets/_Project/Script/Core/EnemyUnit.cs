@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class EnemyUnit : BaseUnit
 {
-    BaseUnit basetest;
     public EnemyUI EnemyUI;
 
     public CharacterUnit playerGo; // Assign the player GameObject in the Inspector
@@ -28,18 +27,18 @@ public class EnemyUnit : BaseUnit
         base.OnSubscriptionSet();
         AddEvent(Ondead, _ => EnemyDead());
 
-
+        EnemyUI.SetMaxHp(_unitStats.HealthAmount);
     }
     private void Awake()
     {
-        EnemyUI.SetMaxHp(200);
+       
          agent = GetComponent<NavMeshAgent>();
     }
     void Update()
     {
         EnemyUI.SetHealthBarUI(_unitStats.HealthAmount);
         MoveEnemy();
-
+      
     }
 
 
@@ -90,7 +89,7 @@ public class EnemyUnit : BaseUnit
     }
     public void DropExpAndItem(CharacterUnit receiver)
     {
-        receiver.OnGainExp(20);
+        receiver.OnGainExp(80);
     }
     public void DoAttackDamage(BaseUnit receiver, float damageAmount)
     {

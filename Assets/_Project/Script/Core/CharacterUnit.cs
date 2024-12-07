@@ -15,7 +15,8 @@ public class CharacterUnit : BaseUnit, IAttack
 {
     [TabGroup("Main Weapon Data")][SerializeField] protected WeaponBase _currWeapon;
     [TabGroup("Main Weapon Data")][SerializeField][ReadOnly] public WeaponData _WeaponData;
- 
+    [TabGroup("Main Weapon Data")][SerializeField] public Transform _GunWeaponTransform;
+
 
     [TabGroup("Weapon Gizmos"), Range(0f, 10f)] public float MainRange; //Closest more damage
     [TabGroup("Weapon Gizmos"), Range(10f, 20f)] public float SecondRange; //second closes has slight damage
@@ -70,7 +71,7 @@ public class CharacterUnit : BaseUnit, IAttack
         _characterHud.SetImageMaxFloat(_characterHud.PlayerCDImage, _WeaponData.CoolDown);
         _characterHud.SetSliderMaxHp(_unitStats.HealthAmount);
 
-
+        SetGunTransform();
     }
     void InitializeCurrWeapon()
     {
@@ -84,6 +85,14 @@ public class CharacterUnit : BaseUnit, IAttack
             IsMeleeMode = true;
     
         }
+    }
+    public void SetGunTransform()
+    {
+        if (!IsMeleeMode)
+        {
+            _currWeapon.GunWeaponData.BulletSpawnPoint = _GunWeaponTransform;
+        }
+
     }
     void StartShooting()
     {
@@ -240,22 +249,24 @@ public class CharacterUnit : BaseUnit, IAttack
     public void OnGainExp(float Exp)
     {
         _unitStats.CurrExp += Exp;
+       
         OnGainingExp?.OnNext(Unit.Default);
         if (_unitStats.CurrExp >= _unitStats.MaxExp)
         {
             Debug.LogError("LEVEL UP");
-
             LevelUp();
    
         }
     }
     public void LevelUp()
     {
+
         //Reset Value of UI slider 
+      
         _unitStats.CurrExp -= _unitStats.MaxExp;
         _unitStats.CurrLevel++;
         _unitStats.MaxExp = CalculateNewMaxExp(_unitStats.CurrLevel);
-     
+        _characterHud.UpdateSliderExp(_unitStats.CurrExp, _unitStats.MaxExp);
     }
 
     private float CalculateNewMaxExp(int level)

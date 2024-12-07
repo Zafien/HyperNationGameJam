@@ -57,6 +57,15 @@ public class CharacterHudManager : MonoExt
         PlayerExpSlider.value = _characterUnit._unitStats.CurrExp;
     }
 
+    public void UpdateSliderExp(float exp, float maxExp)
+    {
+        if (PlayerExpSlider.value >= PlayerExpSlider.maxValue)
+        {
+            PlayerExpSlider.value = exp;
+            PlayerExpSlider.maxValue = maxExp;
+        }
+    }
+
     //public void SetExpMaxFloat(Image Image, float MaxValue)
     //{
 
