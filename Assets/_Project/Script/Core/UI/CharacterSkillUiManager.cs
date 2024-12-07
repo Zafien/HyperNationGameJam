@@ -36,5 +36,8 @@ public class CharacterSkillUiManager : MonoBehaviour
         
         SkillUiButton.PressedSkill();
         Debug.LogError("PRESSED THUIS");
+        SkillUiButton.gameObject.SetActive(false);  
+        gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 }
