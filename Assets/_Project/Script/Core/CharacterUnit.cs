@@ -16,13 +16,13 @@ public class CharacterUnit : BaseUnit, IAttack
     [TabGroup("Main Weapon Data")][SerializeField] protected WeaponBase _currWeapon;
     [TabGroup("Main Weapon Data")][SerializeField][ReadOnly] public WeaponData _WeaponData;
     [TabGroup("Main Weapon Data")][SerializeField] public Transform _GunWeaponTransform;
-
+    [TabGroup("Main Weapon Data")][SerializeField] public WeapoonEffectBase _weaponEffect;
 
     [TabGroup("Weapon Gizmos"), Range(0f, 10f)] public float MainRange; //Closest more damage
     [TabGroup("Weapon Gizmos"), Range(10f, 20f)] public float SecondRange; //second closes has slight damage
     [TabGroup("Weapon Gizmos"), Range(20f, 30f)] public float ThirdRange; //third closes has minimal damage
     [TabGroup("UI")] [SerializeField] private CharacterHudManager _characterHud; //third closes has minimal damage
-
+    [TabGroup("UI")][SerializeField] private CharacterSkillUiManager _weaponEffectUI;
     public BodyRotator BodyRotator;
     public bool isDamaging;
     public bool IsMeleeMode;
@@ -253,6 +253,7 @@ public class CharacterUnit : BaseUnit, IAttack
         OnGainingExp?.OnNext(Unit.Default);
         if (_unitStats.CurrExp >= _unitStats.MaxExp)
         {
+            _weaponEffectUI.OpenSkillUI();
             Debug.LogError("LEVEL UP");
             LevelUp();
    
@@ -262,7 +263,7 @@ public class CharacterUnit : BaseUnit, IAttack
     {
 
         //Reset Value of UI slider 
-      
+
         _unitStats.CurrExp -= _unitStats.MaxExp;
         _unitStats.CurrLevel++;
         _unitStats.MaxExp = CalculateNewMaxExp(_unitStats.CurrLevel);
