@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c940a1501487ed3409a647d0d97562a0, type: 3}
-  m_Name: Burn Damage
+  m_Name: SpawnMine
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,3 +21,5 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  Cooldown: 3
+  bomb: {fileID: 1055593622357459624, guid: 576664671b3c13d458fb6ed01820aeef, type: 3}

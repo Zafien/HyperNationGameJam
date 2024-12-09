@@ -16,7 +16,7 @@ public class CharacterUnit : BaseUnit, IAttack
     [TabGroup("Main Weapon Data")][SerializeField] protected WeaponBase _currWeapon;
     [TabGroup("Main Weapon Data")][SerializeField][ReadOnly] public WeaponData _WeaponData;
     [TabGroup("Main Weapon Data")][SerializeField] public Transform _GunWeaponTransform;
-    [TabGroup("Main Weapon Data")][SerializeField] public WeapoonEffectBase _weaponEffect;
+
 
     [TabGroup("Weapon Gizmos"), Range(0f, 10f)] public float MainRange; //Closest more damage
     [TabGroup("Weapon Gizmos"), Range(10f, 20f)] public float SecondRange; //second closes has slight damage
@@ -29,7 +29,7 @@ public class CharacterUnit : BaseUnit, IAttack
 
 
     public bool isOnCooldown = false;
-
+    public bool SkillCooldown = false;
     public Subject<Unit> OnGainingExp { get; private set; }
 
     public override void Initialize(object data = null)
@@ -59,7 +59,9 @@ public class CharacterUnit : BaseUnit, IAttack
         DebugShootLine();
 
         StartMelee();
+        StartActivatingSkill();
         _characterHud.SetPlayerCurrentHp(_unitStats.HealthAmount);
+
         //_characterHud.SetExp(_unitStats.CurrExp, _unitStats.MaxExp);
     }
 
@@ -110,6 +112,18 @@ public class CharacterUnit : BaseUnit, IAttack
             MeleeEnemy();
             StartCoroutine(WeaponCoolDown(_currWeapon.WeaponData.CoolDown));
         }
+    }
+
+    void StartActivatingSkill()
+    {
+        if (SkillCooldown == false)
+        {
+     
+            ActivateWeaponEffectEnemy();
+            StartCoroutine(SkillCoolDown(_WeaponData.WeaponEffect.Cooldown));
+            Debug.LogError(_WeaponData.WeaponEffect.Cooldown + "asdasdwawd");
+        }
+
     }
  
     public void DoAttackDamage(BaseUnit receiver, float damageAmount)
@@ -167,6 +181,21 @@ public class CharacterUnit : BaseUnit, IAttack
         Debug.Log("Ability ready again!");
     }
 
+    public IEnumerator SkillCoolDown(float CoolDownDuration)
+    {
+        SkillCooldown = true;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < CoolDownDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            //_characterHud.PlayerCDImage.fillAmount = 1 - (elapsedTime / CoolDownDuration); // Fill decreases over time
+
+            yield return null; // Wait for the next frame
+        }
+        SkillCooldown = false;
+    }
+
     public void ShootEnemy()
     {
         if (isOnCooldown == false)
@@ -182,6 +211,23 @@ public class CharacterUnit : BaseUnit, IAttack
             _currWeapon.ActivateAttack();
             PerformAttack();
         }
+    }
+
+    public void ActivateWeaponEffectEnemy()
+    {
+        if (_WeaponData.WeaponEffect == null)
+        {
+            Debug.LogError("Weapon or WeaponEffect is null!");
+            return;
+        }
+        if (SkillCooldown == false)
+        {
+            var currentWeaponEffect = _WeaponData.WeaponEffect;
+            Debug.LogError("SPAWNED Skill");
+            currentWeaponEffect.ApplyEffect(transform.position, transform.forward);
+        }
+       
+       
     }
 
 
@@ -218,6 +264,8 @@ public class CharacterUnit : BaseUnit, IAttack
             Debug.Log($"Distance from: {start} to: {end}");
         }
     }
+
+    
 
  
     private void OnDrawGizmos()
