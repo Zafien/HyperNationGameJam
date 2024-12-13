@@ -7,24 +7,17 @@ public class LookAt : MonoBehaviour
     public Transform cam;
     // Start is called before the first frame update
 
-    private void LateUpdate()
-    {
-        Vector3 directionToCamera = cam.position - transform.position;
+    private Quaternion fixedRotation; // Store the fixed rotation for the canvas
 
-        // Keep the UI element upright by fixing the y-axis rotation
-        directionToCamera.y = 0;
-    
-        // Set the UI to look at the camera along this adjusted direction
-        transform.rotation = Quaternion.LookRotation(-directionToCamera);
-    }
     void Start()
     {
-        
+        // Store the initial rotation of the canvas
+        fixedRotation = transform.rotation;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
-        
+        // Prevent the canvas from rotating by reapplying the fixed rotation
+        transform.rotation = fixedRotation;
     }
 }

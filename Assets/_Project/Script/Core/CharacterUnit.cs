@@ -116,6 +116,10 @@ public class CharacterUnit : BaseUnit, IAttack
 
     void StartActivatingSkill()
     {
+        if (_WeaponData.WeaponEffect == null)
+        {
+            return;
+        }
         if (SkillCooldown == false)
         {
      
