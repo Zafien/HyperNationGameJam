@@ -5,14 +5,18 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 10f;  // Speed of the bullet
-    public float lifeTime = 5f;  // Time before bullet is destroyed
+    public float lifeTime = 1f;  // Time before bullet is destroyed
     public int Damage;
 
 
     //public float Range1;
     //public float Range2;
     //public float Range3;
-
+    private void OnEnable()
+    {
+        // Automatically release the bullet after `lifetime` seconds
+        Invoke(nameof(ReleaseToPool), lifeTime);
+    }
     public void DoAttackDamage(BaseUnit receiver, int damageAmount)
     {
         receiver.ModifyHealthAmount(damageAmount);
@@ -24,7 +28,7 @@ public class Bullet : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             DoAttackDamage(test, Damage);
-            Destroy(this.gameObject);
+            ReleaseToPool();
         }
      
     }
@@ -33,4 +37,10 @@ public class Bullet : MonoBehaviour
     {
 
     }
+
+    private void ReleaseToPool()
+    {
+        BulletPuller.Instance.ReleaseBullet(this);
+    }
+
 }

@@ -32,6 +32,8 @@ public class CharacterUnit : BaseUnit, IAttack
     public bool SkillCooldown = false;
     public Subject<Unit> OnGainingExp { get; private set; }
 
+
+    
     public override void Initialize(object data = null)
     {
         base.Initialize(data);
@@ -146,16 +148,30 @@ public class CharacterUnit : BaseUnit, IAttack
 
             // Calculate the direction from spawn point to enemy
             Vector3 direction = (end - start).normalized;
-        
-            // Instantiate the bullet at the spawn point
-            GameObject bullet = Instantiate(_currWeapon.GunWeaponData.Bullet, start, Quaternion.LookRotation(direction));
-            Instantiate(bullet, start, Quaternion.LookRotation(direction));
-            // Apply velocity in the calculated direction
 
-            Rigidbody rb = bullet.GetComponent<Rigidbody>();
-            if (rb != null)
+            // Instantiate the bullet at the spawn point
+            //    GameObject bullet = Instantiate(_currWeapon.GunWeaponData.Bullet, start, Quaternion.LookRotation(direction));
+            //Instantiate(bullet, start, Quaternion.LookRotation(direction));
+            Bullet bullet = BulletPuller.Instance.GetBullet();
+
+
+            if (bullet != null)
             {
-                rb.velocity = direction * 80f;
+                // Apply velocity to the spawned bullet
+                Rigidbody rb = bullet.GetComponent<Rigidbody>();
+                // Set up the bullet's position, rotation, and direction
+                bullet.transform.position = start;
+                bullet.transform.rotation = Quaternion.LookRotation(direction);
+                //bullet.SetDirection(direction);
+                if (rb != null)
+                {
+                    rb.velocity = direction * 80f; // Adjust speed as necessary
+                    Debug.Log($"Bullet velocity set to {rb.velocity}");
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to spawn bullet: Bullet pool is empty!");
             }
         }
     }

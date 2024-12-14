@@ -42,7 +42,7 @@ public class WeaponData
 {
     public WeaponData(WeaponData data)
     {
-        Damage = data.Damage;
+        Damage = data.Damage; //Weapon damage is inside the BUllet
         CoolDown = data.CoolDown;
         WeaponType = data.WeaponType;
         VFXSpawnLocation = data.VFXSpawnLocation;
