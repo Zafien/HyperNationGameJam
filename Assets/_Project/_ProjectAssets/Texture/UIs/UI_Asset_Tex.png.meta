@@ -348,6 +348,237 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: UI_Game_Logo
+      rect:
+        serializedVersion: 2
+        x: 2182
+        y: 3010
+        width: 1908
+        height: 1085
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bffd4578effb9a0439b314a615101474
+      internalID: -538669033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Shop
+      rect:
+        serializedVersion: 2
+        x: 1562
+        y: 3265
+        width: 217
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67c35c7064ef2e3408b512f4c94b580c
+      internalID: 411348068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Buy_Btn
+      rect:
+        serializedVersion: 2
+        x: 1537
+        y: 2859
+        width: 585
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14ca5d1a9d8039141b92e7d87b7078d8
+      internalID: 491702534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Skills_Bomb_S
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 2884
+        width: 115
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b92ae8c86e57054ca9f497f2d715885
+      internalID: 1775083518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Skills_Missile_S
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 2880
+        width: 123
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79fd5bde0a4923c439057c2dc9428e2c
+      internalID: -272690192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Skills_Lightning_S
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 2880
+        width: 90
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16cedb3b39bc2754a8c24b2d360ec45c
+      internalID: -2140208865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Skills_Shade_S
+      rect:
+        serializedVersion: 2
+        x: 1083
+        y: 2831
+        width: 241
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a803ffb3b2d66048a8d89ec8c15ffab
+      internalID: -453404047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Skills_Bomb_L
+      rect:
+        serializedVersion: 2
+        x: 2205
+        y: 2399
+        width: 486
+        height: 491
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb24ba4202c869d43b4833d44bfe02f9
+      internalID: 1212682743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Skills_Missile_L
+      rect:
+        serializedVersion: 2
+        x: 2863
+        y: 2404
+        width: 456
+        height: 453
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ded7646ed3ea144bbcd5f63c69b83f3
+      internalID: 1053076206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Skills_Lightning_L
+      rect:
+        serializedVersion: 2
+        x: 3486
+        y: 2377
+        width: 316
+        height: 477
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81108dff52ce2604bb41d07f835eaf60
+      internalID: 222622050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_LevelUp_Panel
+      rect:
+        serializedVersion: 2
+        x: 2714
+        y: 784
+        width: 1142
+        height: 1472
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dba31c243f48b6d4aaffcba7074eb2c6
+      internalID: 1376686552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -359,15 +590,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      UI_Buy_Btn: 491702534
+      UI_Game_Logo: -538669033
       UI_HP_Back: 1143152153
       UI_HP_Front: -1790515286
       UI_HP_InnerBar: 191275189
+      UI_LevelUp_Panel: 1376686552
       UI_Profile: 748407876
       UI_Shield_Back: 644471323
       UI_Shield_Front: -821920283
       UI_Shield_Icon: 144083451
       UI_Shield_InnerBar: -1965215613
+      UI_Shop: 411348068
       UI_Skill_Base: 2107961370
+      UI_Skills_Bomb_L: 1212682743
+      UI_Skills_Bomb_S: 1775083518
+      UI_Skills_Lightning_L: 222622050
+      UI_Skills_Lightning_S: -2140208865
+      UI_Skills_Missile_L: 1053076206
+      UI_Skills_Missile_S: -272690192
+      UI_Skills_Shade_S: -453404047
       UI_XP_Back: -1246123365
       UI_XP_Front: 1127176327
       UI_XP_InnerBar: 1705317639
