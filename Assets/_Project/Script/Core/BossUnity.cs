@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-
-public class EnemyUnit : BaseUnit
+public class BossUnity : BaseUnit
 {
+    public SwapObject playerParry;
     public EnemyUI EnemyUI;
     public Animator EnemyAnimator;
     public CharacterUnit playerGo; // Assign the player GameObject in the Inspector
@@ -18,7 +19,7 @@ public class EnemyUnit : BaseUnit
     public override void Initialize(object data = null)
     {
         base.Initialize(data);
-       
+
     }
 
 
@@ -31,14 +32,14 @@ public class EnemyUnit : BaseUnit
     }
     private void Awake()
     {
-       
-         agent = GetComponent<NavMeshAgent>();
+
+        agent = GetComponent<NavMeshAgent>();
     }
     void Update()
     {
         EnemyUI.SetHealthBarUI(_unitStats.HealthAmount);
         MoveEnemy();
-      
+
     }
 
 
@@ -64,6 +65,7 @@ public class EnemyUnit : BaseUnit
             // Attack logic
             if (Time.time > lastAttackTime + attackCooldown)
             {
+                playerParry.EnemyAttack();
                 EnemyAnimator.SetBool("OnAttack", true);
                 Debug.LogError("ATTACKING THE PLAYER");
                 Attack();
@@ -76,10 +78,10 @@ public class EnemyUnit : BaseUnit
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
         }
     }
-   
+
     void Attack()
     {
-       
+
         Debug.Log("Attacking PLAYER"); // Replace this with actual attack logic
         DoAttackDamage(playerGo, 5);
     }

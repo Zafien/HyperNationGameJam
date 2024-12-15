@@ -166,7 +166,7 @@ public class CharacterUnit : BaseUnit, IAttack
                 if (rb != null)
                 {
                     rb.velocity = direction * 80f; // Adjust speed as necessary
-                    Debug.Log($"Bullet velocity set to {rb.velocity}");
+                    //Debug.Log($"Bullet velocity set to {rb.velocity}");
                 }
             }
             else

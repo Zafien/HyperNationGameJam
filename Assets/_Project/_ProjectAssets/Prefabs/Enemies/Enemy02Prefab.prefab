@@ -1167,6 +1167,7 @@ MonoBehaviour:
     CurrLevel: 0
     IsInvulnerable: 0
   EnemyUI: {fileID: 7352359483890504861}
+  EnemyAnimator: {fileID: 8231725735873770320}
   playerGo: {fileID: 0}
   attackDistance: 5
   attackCooldown: 1

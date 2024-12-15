@@ -15,5 +15,6 @@ public class SpawnMine : WeapoonEffectBase
         GameObject bombGo = Instantiate(bomb, position, Quaternion.identity);
     }
 
+   
 
 }
