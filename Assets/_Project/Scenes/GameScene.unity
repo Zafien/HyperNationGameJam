@@ -688,8 +688,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -383.20776, y: -85.64699}
-  m_SizeDelta: {x: 55.8666, y: 59.959}
+  m_AnchoredPosition: {x: -384.02985, y: -88.38199}
+  m_SizeDelta: {x: 37.2627, y: 43.5934}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &668333994
 MonoBehaviour:
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: -272690192, guid: 2e0f633e9185aa446aa3358386fb0bdd, type: 3}
   m_Type: 3
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -883,7 +883,7 @@ PrefabInstance:
     - target: {fileID: 8081515084419348084, guid: b1edf7a5b3497bb49bb427d37e8f9edb,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1049,7 +1049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.91194963, g: 0.7656935, b: 0.7656935, a: 1}
+  m_Color: {r: 0.91194963, g: 0.7656935, b: 0.7656935, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2008,7 +2008,7 @@ PrefabInstance:
     - target: {fileID: 8070502339010631504, guid: b1edf7a5b3497bb49bb427d37e8f9edb,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 213.3557
       objectReference: {fileID: 0}
     - target: {fileID: 8070502339010631504, guid: b1edf7a5b3497bb49bb427d37e8f9edb,
         type: 3}
@@ -2053,7 +2053,7 @@ PrefabInstance:
     - target: {fileID: 8070502339010631504, guid: b1edf7a5b3497bb49bb427d37e8f9edb,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 141.72191
+      value: 425.1657
       objectReference: {fileID: 0}
     - target: {fileID: 8070502339010631504, guid: b1edf7a5b3497bb49bb427d37e8f9edb,
         type: 3}
@@ -3403,7 +3403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8742138, g: 0.7120169, b: 0.7120169, a: 0.078431375}
+  m_Color: {r: 0.8742138, g: 0.7120169, b: 0.7120169, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3621,7 +3621,7 @@ PrefabInstance:
     - target: {fileID: 8081515084419348084, guid: b1edf7a5b3497bb49bb427d37e8f9edb,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

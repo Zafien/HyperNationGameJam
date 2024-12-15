@@ -23,7 +23,7 @@ MonoBehaviour:
     SerializationNodes: []
   WeaponData:
     Damage: 1
-    CoolDown: 0.1
+    CoolDown: 0.3
     WeaponType: 0
     VFXSpawnLocation: {fileID: 0}
     ParticleFx: {fileID: 0}

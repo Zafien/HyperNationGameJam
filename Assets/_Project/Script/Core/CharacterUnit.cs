@@ -321,9 +321,14 @@ public class CharacterUnit : BaseUnit, IAttack
         OnGainingExp?.OnNext(Unit.Default);
         if (_unitStats.CurrExp >= _unitStats.MaxExp)
         {
+            LevelUp();
+            if (_unitStats.CurrLevel >= 3)
+            {
+                return;
+            }
             _weaponEffectUI.OpenSkillUI();
             Debug.LogError("LEVEL UP");
-            LevelUp();
+          
    
         }
     }
